@@ -2,23 +2,23 @@
 #include <cmath>
 
 // Function to calculate h
-double calculateH(double x_start, double y_start, double x_end, double y_end) {
+constexpr double calculateH(double x_start, double y_start, double x_end, double y_end) {
     return std::sqrt(std::pow(x_start - x_end, 2) + std::pow(y_start - y_end, 2));
 }
 
 // Parametric functions for x(t) and y(t)
-double parametricX(double t, double x_start, double x1, double x_end) {
+constexpr double parametricX(double t, double x_start, double x1, double x_end) {
     return (1 - t) * ((1 - t) * x_start + t * x1) + t * ((1 - t) * x1 + t * x_end);
 }
 
-double parametricY(double t, double y_start, double y1, double y_end) {
+constexpr double parametricY(double t, double y_start, double y1, double y_end) {
     return (1 - t) * ((1 - t) * y_start + t * y1) + t * ((1 - t) * y1 + t * y_end);
 }
 
 // Function to calculate arc length, x1, and y1
-double calculateArcLength(double x_start, double y_start, double x_end,
-                          double y_end, double theta_end, double d_lead,
-                          int n) {
+template <int n>
+constexpr double calculateArcLength(double x_start, double y_start, double x_end,
+                                     double y_end, double theta_end, double d_lead) {
     double h = calculateH(x_start, y_start, x_end, y_end);
     double x1 = x_end - h * std::sin(theta_end) * d_lead;
     double y1 = y_end - h * std::cos(theta_end) * d_lead;
@@ -43,5 +43,10 @@ double calculateArcLength(double x_start, double y_start, double x_end,
 }
 
 int main() {
-    std::cout << ' ' <<  calculateArcLength(0.0, 0.0, 50000.0, 50000.0, 232.0 * M_PI / 180.0, 0.4, 100000) << std::endl;
+    // Use double literals for compile-time constants
+    constexpr double arcLength2 = calculateArcLength<100000>(0.0, 0.0, 50000.0, 50000.0, 232.0 * M_PI / 180.0, 0.4);
+
+    std::cout << "Arc Length with n=300: " << arcLength2 << std::endl;
+
+    return 0;
 }

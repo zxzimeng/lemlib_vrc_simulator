@@ -15,7 +15,8 @@
 					"source" : ".",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
@@ -30,7 +31,8 @@
 					"name" : "arc_length_cpp",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
@@ -41,6 +43,13 @@
 					"id" : "arc_length_cpp::@6890427a1f51a3e7e1df",
 					"jsonFile" : "target-arc_length_cpp-Debug-a66aceb0826e5fc6fc6b.json",
 					"name" : "arc_length_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "compile_time_arclength::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-compile_time_arclength-Debug-6c44f8d453ea9dac4eab.json",
+					"name" : "compile_time_arclength",
 					"projectIndex" : 0
 				}
 			]

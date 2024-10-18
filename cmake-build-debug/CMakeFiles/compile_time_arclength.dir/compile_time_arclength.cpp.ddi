@@ -1,0 +1,11 @@
+{
+"rules": [
+{
+"primary-output": "CMakeFiles/compile_time_arclength.dir/compile_time_arclength.cpp.o",
+"requires": [
+]
+}
+],
+"version": 0,
+"revision": 0
+}

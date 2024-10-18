@@ -1,0 +1,6 @@
+# ninja log v6
+1	52	1729270966872953958	CMakeFiles/arc_length_cpp.dir/main.cpp.o.ddi	d1860155fa2b150c
+55	264	1729270966926953868	CMakeFiles/arc_length_cpp.dir/main.cpp.o	6419706d00509b8b
+52	55	1729270966923953873	CMakeFiles/arc_length_cpp.dir/CXX.dd	262929647f471567
+52	55	1729270966923953873	CMakeFiles/arc_length_cpp.dir/main.cpp.o.modmap	262929647f471567
+264	295	1729270967135953517	arc_length_cpp	ce8673995b3644aa

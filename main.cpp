@@ -712,7 +712,7 @@ namespace lemlib {
             if (jerryio) {
                 // printf("moveToPoint(%f, %f, %f);\n", getPose().x, getPose().y, getPose().theta);'
                 std::stringstream command;
-                command << "moveToPoint(" << getPose().x << ", " << getPose().y << ", " << getPose().theta << ", 30);";
+                command << "moveToPoint(" << getPose().x*2.54 << ", " << getPose().y*2.54 << ", " << getPose().theta << ", 30);";
                 // 30 is the speed
                 movementCommands.push_back(command.str());
             } else {
@@ -724,7 +724,7 @@ namespace lemlib {
             std::stringstream command;
             if (jerryio) {
                 // If it's JerryIO, format for moveToPoint
-                command << "moveToPoint(" << x << ", " << y << ", " << theta << ", 30);"; // 30 is the speed
+                command << "moveToPoint(" << x*2.54 << ", " << y*2.54 << ", " << theta << ", 30);"; // 30 is the speed
             } else {
                 // Otherwise, just print the current pose in a readable format
                 command << "Current Pose: x:" << x << " y:" << y << " theta:" << theta << " \n";
@@ -734,105 +734,135 @@ namespace lemlib {
             movementCommands.push_back(command.str());
         }
 
-        std::string generateRandomUID(int length = 10) {
+
+
+        // Initialize the random number generator (seeded once with time)
+        std::string generateRandomUID(int length=10) {
+            static std::mt19937 rng;  // Random number generator, static to keep state between calls
             const std::string alphanumeric = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            std::random_device rd;
-            std::mt19937 gen(rd());
-            std::uniform_int_distribution<> dis(0, alphanumeric.size() - 1);
+            const int charactersLength = alphanumeric.size();
 
             std::string uid;
+
+            // Use the random number generator `rng` to pick random characters from the alphabet
+            std::uniform_int_distribution<int> dist(0, charactersLength - 1);  // Uniform distribution
+
             for (int i = 0; i < length; ++i) {
-                uid += alphanumeric[dis(gen)];
+                uid += alphanumeric[dist(rng)];
             }
 
             return uid;
         }
 
-        // Function to output all the collected movement commands to a file
-        void generatePathFile(const std::string &filename) {
-            // Open the file for writing
-            std::ofstream file(filename);
-            if (!file.is_open()) {
-                std::cerr << "Failed to open file!" << std::endl;
-                return;
-            }
+       void generatePathFile(const std::string &filename) {
+    // Open the file for writing
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Failed to open file!" << std::endl;
+        return;
+    }
 
-            // Start the JSON structure
-            file << "#PATH.JERRYIO-DATA ";
-            file << "{\n";
-            file << "  \"appVersion\": \"0.8.3\",\n";
-            file << "  \"format\": \"Move-to-Point Code Gen v0.1\",\n";
-            file << "  \"gc\": {\n";
-            file << "    \"robotWidth\": 30,\n";
-            file << "    \"robotHeight\": 30,\n";
-            file << "    \"showRobot\": false,\n";
-            file << "    \"uol\": 1,\n";
-            file << "    \"pointDensity\": 2,\n";
-            file << "    \"controlMagnetDistance\": 5,\n";
-            file << "    \"fieldImage\": {\n";
-            file << "      \"displayName\": \"V5RC 2025 - High Stakes\",\n";
-            file << "      \"signature\": \"V5RC 2025 - High Stakes\",\n";
-            file << "      \"origin\": {\"__type\": \"built-in\"}\n";
-            file << "    },\n";
-            file << "    \"coordinateSystem\": \"VEX Gaming Positioning System\",\n";
-            file <<
-                    "    \"outputTemplate\": \"path: `// ${name}\\n\\n${code}\\n`\\nmoveToPoint: `moveToPoint(${x}, ${y}, ${heading}, ${speed});`\"\n";
-            file << "  },\n";
-            file << "  \"paths\": [\n";
-            file << "    {\n";
-            file << "      \"segments\": [\n";
-            file << "        {\n";
-            file << "          \"controls\": [\n";
+    // Start the JSON structure
+    file << "#PATH.JERRYIO-DATA";
+    file << "{";
+    file << "\"appVersion\":\"0.8.3\",";
+    file << "\"format\":\"Move-to-Point Code Gen v0.1\",";
+    file << "\"gc\":{";
+    file << "\"robotWidth\":30,";
+    file << "\"robotHeight\":30,";
+    file << "\"showRobot\":false,";
+    file << "\"uol\":1,";
+    file << "\"pointDensity\":2,";
+    file << "\"controlMagnetDistance\":5,";
+    file << "\"fieldImage\":{";
+    file << "\"displayName\":\"V5RC 2025 - High Stakes (Skills)\",";
+    file << "\"signature\":\"V5RC 2025 - High Stakes (Skills)\",";
+    file << "\"origin\":{\"__type\":\"built-in\"}";
+    file << "},";
+    file << "\"coordinateSystem\":\"VEX Gaming Positioning System\",";
+    file << "\"outputTemplate\":\"path:`//${name}\\n\\n${code}\\n`\\nmoveToPoint:`moveToPoint(${x}, ${y}, ${heading}, ${speed});`\"";
+    file << "},";
+    file << "\"paths\":[";
 
-            // Iterate through the stored movements and output them
-            for (size_t i = 0; i < movementCommands.size(); ++i) {
-                std::stringstream ss;
-                ss << movementCommands[i]; // Get the command as a string
-                float x, y, theta;
-                int speed = 30; // Default speed
+    file << "{";
+    file << "\"segments\":[";
 
-                // Extract x, y, theta from the "moveToPoint" formatted string
-                if (ss.str().find("moveToPoint") != std::string::npos) {
-                    sscanf(ss.str().c_str(), "moveToPoint(%f, %f, %f,", &x, &y, &theta);
+    // Start segment, and prepare control points
+    std::vector<std::tuple<float, float, float>> points;  // to hold (x, y, theta) for each point
 
-                    // Write the control point to the file
-                    file << "            {\n";
-                    file << "              \"uid\": \"" << generateRandomUID() << "\",\n"; // Random UID
-                    file << "              \"x\": " << x << ",\n"; // X position
-                    file << "              \"y\": " << y << ",\n"; // Y position
-                    file << "              \"heading\": " << theta << ",\n"; // Heading (theta)
-                    file << "              \"lock\": false,\n"; // Lock status
-                    file << "              \"visible\": true,\n"; // Visibility
-                    file << "              \"__type\": \"end-point\"\n"; // End-point type
-                    file << "            }";
-                    if (i < movementCommands.size() - 1) {
-                        file << ","; // Add comma if not the last element
-                    }
-                    file << "\n"; // Move to the next line for better readability
-                }
-            }
+    // Loop over the movement commands and extract the points
+    for (size_t i = 0; i < movementCommands.size(); ++i) {
+        std::stringstream ss;
+        ss << movementCommands[i];  // Get the current command as a string
 
-            file << "          ],\n";
-            file << "          \"speedProfiles\": [],\n";
-            file << "          \"lookaheadKeyframes\": [],\n";
-            file << "          \"uid\": \"bjcGVqvVdJ\"\n";
-            file << "        }\n";
-            file << "      ],\n";
-            file << "      \"pc\": {\n";
-            file << "        \"speed\": 30\n";
-            file << "      },\n";
-            file << "      \"name\": \"Path\",\n";
-            file << "      \"uid\": \"p3wgVdUieN\", \n";
-            file << "      \"lock\": false, \n";
-            file << "      \"visible\": true \n";
-            file << "    }\n";
-            file << "  ]\n";
-            file << "}\n";
+        float x, y, theta;
+        int speed = 30;  // Default speed
 
-            // Close the file
-            file.close();
-            std::cout << "Path file generated: " << filename << std::endl;
+        // Extract x, y, and theta from the "moveToPoint" formatted string
+        if (ss.str().find("moveToPoint") != std::string::npos) {
+            sscanf(ss.str().c_str(), "moveToPoint(%f,%f,%f,", &x, &y, &theta);
+            points.push_back(std::make_tuple(x, y, theta));  // Store the point
         }
+    }
+
+    // Create the controls in pairs: point1 -> point2, point2 -> point3, etc.
+    for (size_t i = 0; i < points.size() - 1; ++i) {
+        file << "{";
+        file << "\"controls\":[";
+
+        // Control for points[i] and points[i+1]
+        for (int j = 0; j < 2; ++j) {
+            float x = std::get<0>(points[i + j]);
+            float y = std::get<1>(points[i + j]);
+            float theta = std::get<2>(points[i + j]);
+
+            file << "{";
+            file << "\"uid\":\"" << generateRandomUID() << "\",";  // Random UID
+            file << "\"x\":" << x << ",";
+            file << "\"y\":" << y << ",";
+            file << "\"heading\":" << theta << ",";
+            file << "\"lock\":false,";
+            file << "\"visible\":true,";
+            file << "\"__type\":\"end-point\"";
+            file << "}";
+
+            // If it's not the last control, add a comma
+            if (j == 0) {
+                file << ",";
+            }
+        }
+
+        file << "],";  // Close controls array
+
+        file << "\"speedProfiles\":[],";
+        file << "\"lookaheadKeyframes\":[],";
+        file << "\"uid\":\"" << generateRandomUID() << "\"";  // Random UID for this segment
+        file << "}";
+
+        // Add a comma after the segment if it's not the last one
+        if (i < points.size() - 2) {
+            file << ",";
+        }
+    }
+
+    file << "],";  // End of segments array
+    file << "\"pc\":{";
+    file << "\"speed\":30";
+    file << "},";
+    file << "\"name\":\"Path\",";
+    file << "\"uid\":\"" << generateRandomUID() << "\",";
+    file << "\"lock\":false,";
+    file << "\"visible\":true";
+    file << "}";
+
+    file << "]}";
+
+    // Close the file
+    file.close();
+    std::cout << "Path file generated: " << filename << std::endl;
+}
+
+
 
         /**
          * @brief Cancels the currently running motion.
@@ -1056,6 +1086,8 @@ void lemlib::Chassis::moveToPointWithEarlyExit(Pose pose, float timeout, MoveToP
 
 void lemlib::Chassis::processMovement(movement movement_s,
                                       lemlib::transform_across_field transformation = {false, false}) {
+    movement_s.offset_distance-=movement_s.exitDistance;
+    movement_s.exitDistance=0;
     movement transformed_movement = transformMovement(movement_s, transformation);
     if (std::holds_alternative<lemlib::MoveToPoseParams>(transformed_movement.moveParams)) {
         lemlib::MoveToPoseParams params = std::get<lemlib::MoveToPoseParams>(movement_s.moveParams);
@@ -1297,10 +1329,81 @@ void delay(int n) {
     printf("Requested Delay for: %d \n", n);
 }
 
+Chassis chassis;
+void base_quarter_field(transform_across_field transformation) {
+    // GO TO FIRST RING IN TWO MOVEMENTS: FIRST IS WAYPOINT
+    //
+    int i = 0;
+    // // END MOVE
+    //
+    // // TURN TO DIRECTLY FACE SECOND RING
+    if (transformation == transform_across_field{true, false}
+    ) {
+        chassis.turnToHeading(0, 1000,
+                              {AngularDirection::CCW_COUNTERCLOCKWISE},
+                              false);
+    } else {
+        chassis.turnToHeading(180, 1000,
+                              {AngularDirection::CW_CLOCKWISE},
+                              false);
+    }
+    // // END TURN
+    // // MOVE TO SECOND RING
+    chassis.processMovement(movement{
+                                .pose = chassis.getPose(), .offset_distance = 19, .perp_offset_distance = 0,
+                                .moveParams = MoveToPointParams{.forwards = true, .minSpeed = 40}, .exitDistance = 0,
+                                .timeout = 4000,
+                            }, {false, false});
+    // printf("after exec:%d x:%f y:%f theta:%f", i++, chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
+    delay(800);
+    // // END MOVE
+    //
+    // // MOVE TO THIRD RING
+    if (transformation == transform_across_field{true, false}
+    ) {
+        chassis.turnToHeading(-90, 1000,
+                              {AngularDirection::CCW_COUNTERCLOCKWISE},
+                              false);
+    } else {
+        chassis.turnToHeading(-90, 1000,
+                              {AngularDirection::CW_CLOCKWISE},
+                              false);
+    }
+    chassis.processMovement(movement{
+                                .pose = {
+                                    chassis.getPose().x, chassis.getPose().y,
+                                    transformOnlyPose({0, 0, -90}, transformation).theta
+                                },
+                                .offset_distance = 15,
+                                .perp_offset_distance = 0,
+                                .moveParams = MoveToPoseParams{.forwards = true, .minSpeed = 40}, .exitDistance = 0,
+                                .timeout = 4000,
+                            }, {false, false});
+    // printf("after exec:%d x:%f y:%f theta:%f", i++, chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
+    delay(800);
+    // // END MOVE
+    //
+    // // MOVE TO FOURTH RING
+    delay(500);
+    chassis.processMovement(movement{
+                                .pose = {
+                                    chassis.getPose().x, chassis.getPose().y,
+                                    transformOnlyPose({0, 0, -90}, transformation).theta
+                                },
+                                .offset_distance = 17,
+                                .perp_offset_distance = 0,
+                                .moveParams = MoveToPoseParams{.forwards = true, .minSpeed = 40}, .exitDistance = 15.5,
+                                .timeout = 4000
+                            }, {false, false});
+    // printf("after exec:%d x:%f y:%f theta:%f", i++, chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
+    delay(800);
+    // // END MOVE
+}
+
 
 int main() {
+    jerryio=true;
     lemlib::Pose red_right_skill_starting_pose = {(-24 - 28.5), (-24 + 2.35), 305};
-    Chassis chassis;
     chassis.setPose(red_right_skill_starting_pose);
     chassis.printPose();
     // 3RD QUADRANT
@@ -1330,112 +1433,112 @@ int main() {
                                 .moveParams = MoveToPoseParams{.forwards = true, .minSpeed = 50}, .exitDistance = 0,
                                 .timeout = 4000,
                             }, {false, false});
-    // base_quarter_field(transformation);
+    base_quarter_field(transformation);
     // END FIRST RING->MOGO IN CORNER
+    // //
+    // // // MOVE TO FIFTH RING IN TWO MOVES: BACKS OUT AND AWAY (X++ Y++) AND THEN GOES IN
+    // chassis.processMovement(movement{
+    //                             .pose = {
+    //                                 chassis.getPose().x, chassis.getPose().y,
+    //                                 transformOnlyPose({0, 0, -90}, transformation).theta
+    //                             },
+    //                             .offset_distance = -25,
+    //                             .perp_offset_distance = 2,
+    //                             .moveParams = MoveToPoseParams{.forwards = false, .minSpeed = 60}, .exitDistance = 0,
+    //                             .timeout = 4000,
+    //                         }, {false, false});
+    // if (transformation == transform_across_field{true, false}
+    // ) {
+    //     chassis.turnToHeading(-40, 1000,
+    //                           {AngularDirection::CW_CLOCKWISE},
+    //                           false);
+    // } else {
+    //     chassis.turnToHeading(-130, 1000,
+    //                           {AngularDirection::CCW_COUNTERCLOCKWISE},
+    //                           false);
+    // }
+    // delay(800);
+    // chassis.processMovement(movement{
+    //                             .pose = chassis.getPose(), .offset_distance = 10, .perp_offset_distance = -2,
+    //                             .moveParams = MoveToPointParams{.forwards = true, .minSpeed = 40}, .exitDistance = 0,
+    //                             .timeout = 4000,
+    //                         }, {false, false});
+    // delay(800);
+    // // // END MOVE
+    // //
     //
-    // // MOVE TO FIFTH RING IN TWO MOVES: BACKS OUT AND AWAY (X++ Y++) AND THEN GOES IN
-    chassis.processMovement(movement{
-                                .pose = {
-                                    chassis.getPose().x, chassis.getPose().y,
-                                    transformOnlyPose({0, 0, -90}, transformation).theta
-                                },
-                                .offset_distance = -25,
-                                .perp_offset_distance = 2,
-                                .moveParams = MoveToPoseParams{.forwards = false, .minSpeed = 60}, .exitDistance = 0,
-                                .timeout = 4000,
-                            }, {false, false});
-    if (transformation == transform_across_field{true, false}
-    ) {
-        chassis.turnToHeading(-40, 1000,
-                              {AngularDirection::CW_CLOCKWISE},
-                              false);
-    } else {
-        chassis.turnToHeading(-130, 1000,
-                              {AngularDirection::CCW_COUNTERCLOCKWISE},
-                              false);
-    }
-    delay(800);
-    chassis.processMovement(movement{
-                                .pose = chassis.getPose(), .offset_distance = 10, .perp_offset_distance = -2,
-                                .moveParams = MoveToPointParams{.forwards = true, .minSpeed = 40}, .exitDistance = 0,
-                                .timeout = 4000,
-                            }, {false, false});
-    delay(800);
-    // // END MOVE
+    // //
+    // // // MOVE TO POSE TO FACE CORNER
+    // delay(800);
+    // chassis.processMovement(movement{
+    //                             .pose = chassis.getPose(),
+    //                             .offset_distance = -7, .perp_offset_distance = 0,
+    //                             .moveParams = MoveToPoseParams{.forwards = false, .minSpeed = 40}, .exitDistance = 0,
+    //                             .timeout = 4000,
+    //                         }, {false, false});
+    // chassis.turnToHeading(chassis.getPose(false).theta + 200, 1000, {}, false);
+    // // printf("x:%fy:%ftheta:%f", chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
+    // // // END FACE CORNER
+    // //
+    // // // BACK INTO CORNER
+    // chassis.processMovement(movement{
+    //                             .pose = chassis.getPose(),
+    //                             .offset_distance = -17, .perp_offset_distance = 0,
+    //                             .moveParams = MoveToPoseParams{.forwards = false, .minSpeed = 40}, .exitDistance = 0,
+    //                             .timeout = 4000,
+    //                         }, {false, false});
     //
-
-    //
-    // // MOVE TO POSE TO FACE CORNER
-    delay(800);
-    chassis.processMovement(movement{
-                                .pose = chassis.getPose(),
-                                .offset_distance = -7, .perp_offset_distance = 0,
-                                .moveParams = MoveToPoseParams{.forwards = false, .minSpeed = 40}, .exitDistance = 0,
-                                .timeout = 4000,
-                            }, {false, false});
-    chassis.turnToHeading(chassis.getPose(false).theta + 200, 1000, {}, false);
-    // printf("x:%fy:%ftheta:%f", chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
-    // // END FACE CORNER
-    //
-    // // BACK INTO CORNER
-    chassis.processMovement(movement{
-                                .pose = chassis.getPose(),
-                                .offset_distance = -17, .perp_offset_distance = 0,
-                                .moveParams = MoveToPoseParams{.forwards = false, .minSpeed = 40}, .exitDistance = 0,
-                                .timeout = 4000,
-                            }, {false, false});
-
-    // // RELEASE AND MOVE FORWARD
-    // aux.mogo_state = Aux::MOGO_UNLOCKED;
-    if (!jerryio) printf("Mogo UnLocked Request \n");
-    delay(1000);
-    chassis.processMovement(movement{
-                                .pose = chassis.getPose(), .offset_distance = 10, .perp_offset_distance = 0,
-                                .moveParams = MoveToPointParams{.forwards = true, .minSpeed = 40}, .exitDistance = 0,
-                                .timeout = 4000,
-                            }, {false, false});
+    // // // RELEASE AND MOVE FORWARD
+    // // aux.mogo_state = Aux::MOGO_UNLOCKED;
+    // if (!jerryio) printf("Mogo UnLocked Request \n");
+    // delay(1000);
+    // chassis.processMovement(movement{
+    //                             .pose = chassis.getPose(), .offset_distance = 10, .perp_offset_distance = 0,
+    //                             .moveParams = MoveToPointParams{.forwards = true, .minSpeed = 40}, .exitDistance = 0,
+    //                             .timeout = 4000,
+    //                         }, {false, false});
     // // END RELEASE AND MOVE
     // END THIRD QUADRANT
-
-    chassis.processMovement(movement{
-                                .pose = {(-48.5 + 8), 15, -180}, .offset_distance = 0,
-                                .perp_offset_distance = 0,
-                                .moveParams = MoveToPoseParams{.forwards = false}, .exitDistance = 0,
-                                .timeout = 9000,
-                            }, transformation);
-    // aux.mogo_state = Aux::MOGO_LOCKED;
-    if (!jerryio) printf("Mogo UnLocked Request \n");
-    delay(800);
-    chassis.turnToHeading(90, 1000, {}, false);
-    chassis.processMovement(movement{
-                                .pose = {-24, 28, 90}, .offset_distance = 7,
-                                .perp_offset_distance = 0,
-                                .moveParams = MoveToPoseParams{.forwards = true, .minSpeed = 50}, .exitDistance = 0,
-                                .timeout = 4000,
-                            }, {false, false});
-    delay(800);
-
-    // SECOND QUADRANT
-
-    transformation = {true, false};
-    // base_quarter_field(transformation);
-    chassis.turnToHeading(135, 4000, {.direction = AngularDirection::CCW_COUNTERCLOCKWISE}, false);
-    chassis.processMovement(movement{
-                                .pose = chassis.getPose(),
-                                .offset_distance = -17, .perp_offset_distance = 0,
-                                .moveParams = MoveToPoseParams{.forwards = false, .minSpeed = 40}, .exitDistance = 0,
-                                .timeout = 4000,
-                            }, {false, false});
-
-    // // RELEASE AND MOVE FORWARD
-    // aux.mogo_state = Aux::MOGO_UNLOCKED;
-    if (!jerryio) printf("Mogo UnLocked Request \n");
-    delay(1000);
-    chassis.processMovement(movement{
-                                .pose = chassis.getPose(), .offset_distance = 10, .perp_offset_distance = 0,
-                                .moveParams = MoveToPointParams{.forwards = true, .minSpeed = 40}, .exitDistance = 0,
-                                .timeout = 4000,
-                            }, {false, false});
-    // END SECOND QUADRANT
-    chassis.generatePathFile("path_output.json");
+    //
+    // chassis.processMovement(movement{
+    //                             .pose = {(-48.5 + 8), 15, -180}, .offset_distance = 0,
+    //                             .perp_offset_distance = 0,
+    //                             .moveParams = MoveToPoseParams{.forwards = false}, .exitDistance = 0,
+    //                             .timeout = 9000,
+    //                         }, transformation);
+    // // aux.mogo_state = Aux::MOGO_LOCKED;
+    // if (!jerryio) printf("Mogo UnLocked Request \n");
+    // delay(800);
+    // chassis.turnToHeading(90, 1000, {}, false);
+    // chassis.processMovement(movement{
+    //                             .pose = {-24, 28, 90}, .offset_distance = 7,
+    //                             .perp_offset_distance = 0,
+    //                             .moveParams = MoveToPoseParams{.forwards = true, .minSpeed = 50}, .exitDistance = 0,
+    //                             .timeout = 4000,
+    //                         }, {false, false});
+    // delay(800);
+    //
+    // // SECOND QUADRANT
+    //
+    // transformation = {true, false};
+    // // base_quarter_field(transformation);
+    // chassis.turnToHeading(135, 4000, {.direction = AngularDirection::CCW_COUNTERCLOCKWISE}, false);
+    // chassis.processMovement(movement{
+    //                             .pose = chassis.getPose(),
+    //                             .offset_distance = -17, .perp_offset_distance = 0,
+    //                             .moveParams = MoveToPoseParams{.forwards = false, .minSpeed = 40}, .exitDistance = 0,
+    //                             .timeout = 4000,
+    //                         }, {false, false});
+    //
+    // // // RELEASE AND MOVE FORWARD
+    // // aux.mogo_state = Aux::MOGO_UNLOCKED;
+    // if (!jerryio) printf("Mogo UnLocked Request \n");
+    // delay(1000);
+    // chassis.processMovement(movement{
+    //                             .pose = chassis.getPose(), .offset_distance = 10, .perp_offset_distance = 0,
+    //                             .moveParams = MoveToPointParams{.forwards = true, .minSpeed = 40}, .exitDistance = 0,
+    //                             .timeout = 4000,
+    //                         }, {false, false});
+    // // END SECOND QUADRANT
+    // chassis.generatePathFile("path_output.json");
 }

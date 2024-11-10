@@ -1,0 +1,59 @@
+#PATH.JERRYIO-DATA {
+"appVersion": "0.8.3",
+"format": "Move-to-Point Code Gen v0.1",
+"gc": {
+"robotWidth": 30,
+"robotHeight": 30,
+"showRobot": false,
+"uol": 1,
+"pointDensity": 2,
+"controlMagnetDistance": 5,
+"fieldImage": {
+"displayName": "V5RC 2025 - High Stakes",
+"signature": "V5RC 2025 - High Stakes",
+"origin": {
+"__type": "built-in"
+}
+},
+"coordinateSystem": "VEX Gaming Positioning System",
+"outputTemplate": "path: `// ${name}\n\n${code}\n`\nmoveToPoint: `moveToPoint(${x}, ${y}, ${heading}, ${speed});`"
+},
+"paths": [
+{
+"segments": [
+{
+"controls": [
+{
+"uid": "f87UWyhZkJ",
+"x": -60,
+"y": -60,
+"lock": false,
+"visible": true,
+"heading": 0,
+"__type": "end-point"
+},
+{
+"uid": "3doHPUv4Ub",
+"x": -60,
+"y": 60,
+"lock": false,
+"visible": true,
+"heading": 0,
+"__type": "end-point"
+}
+],
+"speedProfiles": [],
+"lookaheadKeyframes": [],
+"uid": "bjcGVqvVdJ"
+}
+],
+"pc": {
+"speed": 30
+},
+"name": "Path",
+"uid": "p3wgVdUieN",
+"lock": false,
+"visible": true
+}
+]
+}

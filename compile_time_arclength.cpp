@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <iomanip>
 
 // Function to calculate h
 constexpr double calculateH(double x_start, double y_start, double x_end, double y_end) {
@@ -44,9 +45,9 @@ constexpr double calculateArcLength(double x_start, double y_start, double x_end
 
 int main() {
     // Use double literals for compile-time constants
-    constexpr double arcLength2 = calculateArcLength<100000>(0.0, 0.0, 50000.0, 50000.0, 232.0 * M_PI / 180.0, 0.4);
-
-    std::cout << "Arc Length with n=300: " << arcLength2 << std::endl;
+    constexpr double arcLength2 = calculateArcLength<400>(0.0, 0, 30, 40.0, 70 * M_PI / 180, 0.6);
+    // constexpr double arcLength1 = calculateArcLength<250>(0.0, 0.0, 140.0, 140.0, 232.0 * M_PI / 180, 0.4);
+    std::cout << std::fixed << std::setprecision(10) << arcLength2  << std::endl;
 
     return 0;
 }

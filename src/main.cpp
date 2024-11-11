@@ -3,15 +3,16 @@
 #include <thread>
 
 bool jerryio = true;
-bool stopflag=false;
+std::atomic<bool> stopflag(false);
 lemlib::ExtendedChassis chassis;
 lemlib::Pose robot_pose={0,0,0};
 Aux aux;
-std::thread t(handle_controller_inputs);
+// std::thread t(handle_controller_inputs);
 
 using namespace lemlib;
 int main() {
     aux.conveyor_state=Aux::CONVEYOR_FORWARD;
+    aux.enact_conveyor_state();
     jerryio=true;
     lemlib::Pose red_right_skill_starting_pose = {(-24 - 28.5), (-24 + 2.35), 305};
     chassis.setPose(red_right_skill_starting_pose);
@@ -27,6 +28,7 @@ int main() {
                                 .timeout = 4000,
                             }, {false, false});
     aux.mogo_state = Aux::MOGO_LOCKED;
+    aux.enact_mogo_state();
     delay(500);
     // END BACK AND LOCK
 
@@ -75,7 +77,9 @@ int main() {
                             }, {false, false});
     delay(800);
     aux.mogo_state=Aux::MOGO_UNLOCKED;
-    aux.flap_state=Aux::FLAP_EXTENDED;
+    aux.enact_mogo_state();
+    // aux.flap_state=Aux::FLAP_EXTENDED;
+    // sleep(1);
     stopflag=true;
-    t.join();
+    // t.join();
 }

@@ -1149,13 +1149,13 @@ Aux::IntakeClawSystemState Aux::get_toggled_intake_claw_system_state() {
 void Aux::update_screen_intake_claw_system_state() {
     switch (intake_claw_system_state) {
         case MANUAL_CONVEYOR:
-            printf("Claw Mode");
+            printf("Claw Mode\n");
 
 
 
             break;
         case AUTO_CONVEYOR:
-            printf("Conveyor Mode");
+            printf("Conveyor Mode\n");
 
 
 
@@ -1172,14 +1172,14 @@ void Aux::enact_conveyor_state() {
     switch (conveyor_state) {
         case CONVEYOR_FORWARD:
 
-            printf("Conveyor Forward");
+            printf("Conveyor Forward\n");
             break;
         case CONVEYOR_REVERSE:
 
-            printf("Conveyor Reverse");
+            printf("Conveyor Reverse\n");
             break;
         case CONVEYOR_STOP:
-            printf("Conveyor Stop");
+            printf("Conveyor Stop\n");
 
             break;
     }
@@ -1190,10 +1190,10 @@ void Aux::enact_mogo_state() {
     switch (mogo_state) {
         case MOGO_LOCKED:
 
-            printf("Mogo Locked");
+            printf("Mogo Locked\n");
             break;
         case MOGO_UNLOCKED:
-            printf("Mogo Unlocked");
+            printf("Mogo Unlocked\n");
 
             break;
     };
@@ -1203,11 +1203,11 @@ void Aux::enact_flap_state() {
     switch (flap_state) {
         case FLAP_EXTENDED:
 
-            printf("Flap Extended");
+            printf("Flap Extended\n");
             break;
         case FLAP_RETRACTED:
 
-            printf("Flap Extended");
+            printf("Flap Extended\n");
             break;
     };
 }
@@ -1216,15 +1216,15 @@ void Aux::spin_claw(ClawDirection direction, int voltage) {
     switch (direction) {
         case CW_TOWARDS_INSIDE:
 
-            printf("Claw CW TOWARDS INSIDE");
+            printf("Claw CW TOWARDS INSIDE\n");
             break;
         case CCW_TOWARDS_OUTSIDE:
 
-            printf("Claw CCW TOWARDS OUTSIDE");
+            printf("Claw CCW TOWARDS OUTSIDE\n");
             break;
         case CLAW_STOP:
 
-            printf("Claw STOP");
+            printf("Claw STOP\n");
             break;
     }
 }

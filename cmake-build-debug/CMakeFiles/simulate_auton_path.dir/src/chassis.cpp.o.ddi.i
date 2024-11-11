@@ -77164,6 +77164,8 @@ namespace std __attribute__ ((__visibility__ ("default")))
 # 1 "/home/fox/code/arc_length_cpp/include/main.h" 1
        
 
+
+
 # 1 "/home/fox/code/arc_length_cpp/include/extended_chassis.hpp" 1
 
        
@@ -77260,7 +77262,7 @@ public:
 };
 
 }
-# 4 "/home/fox/code/arc_length_cpp/include/main.h" 2
+# 6 "/home/fox/code/arc_length_cpp/include/main.h" 2
 
 
 
@@ -77268,7 +77270,7 @@ public:
        
 
 void delay(int n);
-# 8 "/home/fox/code/arc_length_cpp/include/main.h" 2
+# 10 "/home/fox/code/arc_length_cpp/include/main.h" 2
 # 1 "/home/fox/code/arc_length_cpp/include/aux.h" 1
        
 class Aux {
@@ -77315,15 +77317,15 @@ public:
 
     void tare_claw(int timeout = 5000);
 };
-# 9 "/home/fox/code/arc_length_cpp/include/main.h" 2
+# 11 "/home/fox/code/arc_length_cpp/include/main.h" 2
 # 1 "/home/fox/code/arc_length_cpp/include/aux_task.h" 1
        
 
 
 void handle_controller_inputs();
-# 10 "/home/fox/code/arc_length_cpp/include/main.h" 2
+# 12 "/home/fox/code/arc_length_cpp/include/main.h" 2
 
-extern bool stopflag;
+extern std::atomic<bool> stopflag;
 extern Aux aux;
 extern lemlib::Pose robot_pose;
 # 7 "/home/fox/code/arc_length_cpp/src/chassis.cpp" 2

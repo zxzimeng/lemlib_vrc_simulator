@@ -18,37 +18,37 @@ Aux::IntakeClawSystemState Aux::get_toggled_intake_claw_system_state() {
 void Aux::update_screen_intake_claw_system_state() {
     switch (intake_claw_system_state) {
         case MANUAL_CONVEYOR:
-            printf("Claw Mode");
+            printf("Claw Mode\n");
         // master.clear();
         // pros::delay(200);
-        // master.set_text(0, 0, "Claw Mode");
+        // master.set_text(0, 0, "Claw Mode\n");
             break;
         case AUTO_CONVEYOR:
-            printf("Conveyor Mode");
+            printf("Conveyor Mode\n");
         // master.clear();
         // pros::delay(200);
-        // master.set_text(0, 0, "Conveyor Mode");
+        // master.set_text(0, 0, "Conveyor Mode\n");
             break;
     }
 }
 
 void Aux::enact_conveyor_state() {
     // if (intake_claw_system_state == AUTO_CONVEYOR && ring_is_at_position) {
-    //     printf("Conveyor Stop");
+    //     printf("Conveyor Stop\n");
     //     // conveyor_motor.move_velocity(0);
     //     conveyor_state = CONVEYOR_STOP;
     // } else {
     switch (conveyor_state) {
         case CONVEYOR_FORWARD:
             // conveyor_motor.move_velocity(-12000);
-            printf("Conveyor Forward");
+            printf("Conveyor Forward\n");
             break;
         case CONVEYOR_REVERSE:
             // conveyor_motor.move_velocity(12000);
-            printf("Conveyor Reverse");
+            printf("Conveyor Reverse\n");
             break;
         case CONVEYOR_STOP:
-            printf("Conveyor Stop");
+            printf("Conveyor Stop\n");
         // conveyor_motor.move_velocity(0);
             break;
     }
@@ -69,10 +69,10 @@ void Aux::enact_mogo_state() {
     switch (mogo_state) {
         case MOGO_LOCKED:
             // mogo_lock_solenoid.extend();
-            printf("Mogo Locked");
+            printf("Mogo Locked\n");
             break;
         case MOGO_UNLOCKED:
-            printf("Mogo Unlocked");
+            printf("Mogo Unlocked\n");
         // mogo_lock_solenoid.retract();
             break;
     };
@@ -82,11 +82,11 @@ void Aux::enact_flap_state() {
     switch (flap_state) {
         case FLAP_EXTENDED:
             // flap_solenoid.extend();
-            printf("Flap Extended");
+            printf("Flap Extended\n");
             break;
         case FLAP_RETRACTED:
             // flap_solenoid.retract();
-            printf("Flap Extended");
+            printf("Flap Extended\n");
             break;
     };
 }
@@ -95,15 +95,15 @@ void Aux::spin_claw(ClawDirection direction, int voltage) {
     switch (direction) {
         case CW_TOWARDS_INSIDE:
             // claw_motor.move_voltage(-1 * (abs(voltage)));
-            printf("Claw CW TOWARDS INSIDE");
+            printf("Claw CW TOWARDS INSIDE\n");
             break;
         case CCW_TOWARDS_OUTSIDE:
             // claw_motor.move_voltage((abs(voltage)));
-            printf("Claw CCW TOWARDS OUTSIDE");
+            printf("Claw CCW TOWARDS OUTSIDE\n");
             break;
         case CLAW_STOP:
             // claw_motor.move_voltage(0);
-            printf("Claw STOP");
+            printf("Claw STOP\n");
             break;
     }
 }

@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: arc_length_cpp
+# Project: simulate_auton_path
 # Configurations: Debug
 # =============================================================================
 
@@ -41,88 +41,184 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = /home/fox/code/arc_length_cpp/cmake-build-debug/
 # =============================================================================
-# Object build statements for EXECUTABLE target arc_length_cpp
+# Object build statements for EXECUTABLE target simulate_auton_path
 
 
 #############################################
-# Order-only phony target for arc_length_cpp
+# Order-only phony target for simulate_auton_path
 
-build cmake_object_order_depends_target_arc_length_cpp: phony || .
+build cmake_object_order_depends_target_simulate_auton_path: phony || .
 
-build CMakeFiles/arc_length_cpp.dir/main.cpp.o.ddi: CXX_SCAN__arc_length_cpp_Debug /home/fox/code/arc_length_cpp/main.cpp || cmake_object_order_depends_target_arc_length_cpp
-  DEP_FILE = CMakeFiles/arc_length_cpp.dir/main.cpp.o.ddi.d
-  DYNDEP_INTERMEDIATE_FILE = CMakeFiles/arc_length_cpp.dir/main.cpp.o.ddi
+build CMakeFiles/simulate_auton_path.dir/src/aux.cpp.o.ddi: CXX_SCAN__simulate_auton_path_Debug /home/fox/code/arc_length_cpp/src/aux.cpp || cmake_object_order_depends_target_simulate_auton_path
+  DEP_FILE = CMakeFiles/simulate_auton_path.dir/src/aux.cpp.o.ddi.d
+  DYNDEP_INTERMEDIATE_FILE = CMakeFiles/simulate_auton_path.dir/src/aux.cpp.o.ddi
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  OBJ_FILE = CMakeFiles/arc_length_cpp.dir/main.cpp.o
-  PREPROCESSED_OUTPUT_FILE = CMakeFiles/arc_length_cpp.dir/main.cpp.o.ddi.i
+  INCLUDES = -I/home/fox/code/arc_length_cpp/include
+  OBJ_FILE = CMakeFiles/simulate_auton_path.dir/src/aux.cpp.o
+  PREPROCESSED_OUTPUT_FILE = CMakeFiles/simulate_auton_path.dir/src/aux.cpp.o.ddi.i
 
-build CMakeFiles/arc_length_cpp.dir/main.cpp.o: CXX_COMPILER__arc_length_cpp_scanned_Debug /home/fox/code/arc_length_cpp/main.cpp | CMakeFiles/arc_length_cpp.dir/main.cpp.o.modmap || cmake_object_order_depends_target_arc_length_cpp CMakeFiles/arc_length_cpp.dir/CXX.dd
-  DEP_FILE = CMakeFiles/arc_length_cpp.dir/main.cpp.o.d
-  DYNDEP_MODULE_MAP_FILE = CMakeFiles/arc_length_cpp.dir/main.cpp.o.modmap
+build CMakeFiles/simulate_auton_path.dir/src/aux.cpp.o: CXX_COMPILER__simulate_auton_path_scanned_Debug /home/fox/code/arc_length_cpp/src/aux.cpp | CMakeFiles/simulate_auton_path.dir/src/aux.cpp.o.modmap || cmake_object_order_depends_target_simulate_auton_path CMakeFiles/simulate_auton_path.dir/CXX.dd
+  DEP_FILE = CMakeFiles/simulate_auton_path.dir/src/aux.cpp.o.d
+  DYNDEP_MODULE_MAP_FILE = CMakeFiles/simulate_auton_path.dir/src/aux.cpp.o.modmap
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles/arc_length_cpp.dir
-  OBJECT_FILE_DIR = CMakeFiles/arc_length_cpp.dir
-  dyndep = CMakeFiles/arc_length_cpp.dir/CXX.dd
+  INCLUDES = -I/home/fox/code/arc_length_cpp/include
+  OBJECT_DIR = CMakeFiles/simulate_auton_path.dir
+  OBJECT_FILE_DIR = CMakeFiles/simulate_auton_path.dir/src
+  dyndep = CMakeFiles/simulate_auton_path.dir/CXX.dd
 
-build CMakeFiles/arc_length_cpp.dir/CXX.dd | /home/fox/code/arc_length_cpp/cmake-build-debug/CMakeFiles/arc_length_cpp.dir/CXXModules.json CMakeFiles/arc_length_cpp.dir/main.cpp.o.modmap: CXX_DYNDEP__arc_length_cpp_Debug CMakeFiles/arc_length_cpp.dir/main.cpp.o.ddi | /home/fox/code/arc_length_cpp/cmake-build-debug/CMakeFiles/arc_length_cpp.dir/CXXDependInfo.json
+build CMakeFiles/simulate_auton_path.dir/src/aux_task.cpp.o.ddi: CXX_SCAN__simulate_auton_path_Debug /home/fox/code/arc_length_cpp/src/aux_task.cpp || cmake_object_order_depends_target_simulate_auton_path
+  DEP_FILE = CMakeFiles/simulate_auton_path.dir/src/aux_task.cpp.o.ddi.d
+  DYNDEP_INTERMEDIATE_FILE = CMakeFiles/simulate_auton_path.dir/src/aux_task.cpp.o.ddi
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/fox/code/arc_length_cpp/include
+  OBJ_FILE = CMakeFiles/simulate_auton_path.dir/src/aux_task.cpp.o
+  PREPROCESSED_OUTPUT_FILE = CMakeFiles/simulate_auton_path.dir/src/aux_task.cpp.o.ddi.i
+
+build CMakeFiles/simulate_auton_path.dir/src/aux_task.cpp.o: CXX_COMPILER__simulate_auton_path_scanned_Debug /home/fox/code/arc_length_cpp/src/aux_task.cpp | CMakeFiles/simulate_auton_path.dir/src/aux_task.cpp.o.modmap || cmake_object_order_depends_target_simulate_auton_path CMakeFiles/simulate_auton_path.dir/CXX.dd
+  DEP_FILE = CMakeFiles/simulate_auton_path.dir/src/aux_task.cpp.o.d
+  DYNDEP_MODULE_MAP_FILE = CMakeFiles/simulate_auton_path.dir/src/aux_task.cpp.o.modmap
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/fox/code/arc_length_cpp/include
+  OBJECT_DIR = CMakeFiles/simulate_auton_path.dir
+  OBJECT_FILE_DIR = CMakeFiles/simulate_auton_path.dir/src
+  dyndep = CMakeFiles/simulate_auton_path.dir/CXX.dd
+
+build CMakeFiles/simulate_auton_path.dir/src/chassis.cpp.o.ddi: CXX_SCAN__simulate_auton_path_Debug /home/fox/code/arc_length_cpp/src/chassis.cpp || cmake_object_order_depends_target_simulate_auton_path
+  DEP_FILE = CMakeFiles/simulate_auton_path.dir/src/chassis.cpp.o.ddi.d
+  DYNDEP_INTERMEDIATE_FILE = CMakeFiles/simulate_auton_path.dir/src/chassis.cpp.o.ddi
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/fox/code/arc_length_cpp/include
+  OBJ_FILE = CMakeFiles/simulate_auton_path.dir/src/chassis.cpp.o
+  PREPROCESSED_OUTPUT_FILE = CMakeFiles/simulate_auton_path.dir/src/chassis.cpp.o.ddi.i
+
+build CMakeFiles/simulate_auton_path.dir/src/chassis.cpp.o: CXX_COMPILER__simulate_auton_path_scanned_Debug /home/fox/code/arc_length_cpp/src/chassis.cpp | CMakeFiles/simulate_auton_path.dir/src/chassis.cpp.o.modmap || cmake_object_order_depends_target_simulate_auton_path CMakeFiles/simulate_auton_path.dir/CXX.dd
+  DEP_FILE = CMakeFiles/simulate_auton_path.dir/src/chassis.cpp.o.d
+  DYNDEP_MODULE_MAP_FILE = CMakeFiles/simulate_auton_path.dir/src/chassis.cpp.o.modmap
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/fox/code/arc_length_cpp/include
+  OBJECT_DIR = CMakeFiles/simulate_auton_path.dir
+  OBJECT_FILE_DIR = CMakeFiles/simulate_auton_path.dir/src
+  dyndep = CMakeFiles/simulate_auton_path.dir/CXX.dd
+
+build CMakeFiles/simulate_auton_path.dir/src/extended_chassis.cpp.o.ddi: CXX_SCAN__simulate_auton_path_Debug /home/fox/code/arc_length_cpp/src/extended_chassis.cpp || cmake_object_order_depends_target_simulate_auton_path
+  DEP_FILE = CMakeFiles/simulate_auton_path.dir/src/extended_chassis.cpp.o.ddi.d
+  DYNDEP_INTERMEDIATE_FILE = CMakeFiles/simulate_auton_path.dir/src/extended_chassis.cpp.o.ddi
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/fox/code/arc_length_cpp/include
+  OBJ_FILE = CMakeFiles/simulate_auton_path.dir/src/extended_chassis.cpp.o
+  PREPROCESSED_OUTPUT_FILE = CMakeFiles/simulate_auton_path.dir/src/extended_chassis.cpp.o.ddi.i
+
+build CMakeFiles/simulate_auton_path.dir/src/extended_chassis.cpp.o: CXX_COMPILER__simulate_auton_path_scanned_Debug /home/fox/code/arc_length_cpp/src/extended_chassis.cpp | CMakeFiles/simulate_auton_path.dir/src/extended_chassis.cpp.o.modmap || cmake_object_order_depends_target_simulate_auton_path CMakeFiles/simulate_auton_path.dir/CXX.dd
+  DEP_FILE = CMakeFiles/simulate_auton_path.dir/src/extended_chassis.cpp.o.d
+  DYNDEP_MODULE_MAP_FILE = CMakeFiles/simulate_auton_path.dir/src/extended_chassis.cpp.o.modmap
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/fox/code/arc_length_cpp/include
+  OBJECT_DIR = CMakeFiles/simulate_auton_path.dir
+  OBJECT_FILE_DIR = CMakeFiles/simulate_auton_path.dir/src
+  dyndep = CMakeFiles/simulate_auton_path.dir/CXX.dd
+
+build CMakeFiles/simulate_auton_path.dir/src/main.cpp.o.ddi: CXX_SCAN__simulate_auton_path_Debug /home/fox/code/arc_length_cpp/src/main.cpp || cmake_object_order_depends_target_simulate_auton_path
+  DEP_FILE = CMakeFiles/simulate_auton_path.dir/src/main.cpp.o.ddi.d
+  DYNDEP_INTERMEDIATE_FILE = CMakeFiles/simulate_auton_path.dir/src/main.cpp.o.ddi
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/fox/code/arc_length_cpp/include
+  OBJ_FILE = CMakeFiles/simulate_auton_path.dir/src/main.cpp.o
+  PREPROCESSED_OUTPUT_FILE = CMakeFiles/simulate_auton_path.dir/src/main.cpp.o.ddi.i
+
+build CMakeFiles/simulate_auton_path.dir/src/main.cpp.o: CXX_COMPILER__simulate_auton_path_scanned_Debug /home/fox/code/arc_length_cpp/src/main.cpp | CMakeFiles/simulate_auton_path.dir/src/main.cpp.o.modmap || cmake_object_order_depends_target_simulate_auton_path CMakeFiles/simulate_auton_path.dir/CXX.dd
+  DEP_FILE = CMakeFiles/simulate_auton_path.dir/src/main.cpp.o.d
+  DYNDEP_MODULE_MAP_FILE = CMakeFiles/simulate_auton_path.dir/src/main.cpp.o.modmap
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/fox/code/arc_length_cpp/include
+  OBJECT_DIR = CMakeFiles/simulate_auton_path.dir
+  OBJECT_FILE_DIR = CMakeFiles/simulate_auton_path.dir/src
+  dyndep = CMakeFiles/simulate_auton_path.dir/CXX.dd
+
+build CMakeFiles/simulate_auton_path.dir/src/movement_utils.cpp.o.ddi: CXX_SCAN__simulate_auton_path_Debug /home/fox/code/arc_length_cpp/src/movement_utils.cpp || cmake_object_order_depends_target_simulate_auton_path
+  DEP_FILE = CMakeFiles/simulate_auton_path.dir/src/movement_utils.cpp.o.ddi.d
+  DYNDEP_INTERMEDIATE_FILE = CMakeFiles/simulate_auton_path.dir/src/movement_utils.cpp.o.ddi
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/fox/code/arc_length_cpp/include
+  OBJ_FILE = CMakeFiles/simulate_auton_path.dir/src/movement_utils.cpp.o
+  PREPROCESSED_OUTPUT_FILE = CMakeFiles/simulate_auton_path.dir/src/movement_utils.cpp.o.ddi.i
+
+build CMakeFiles/simulate_auton_path.dir/src/movement_utils.cpp.o: CXX_COMPILER__simulate_auton_path_scanned_Debug /home/fox/code/arc_length_cpp/src/movement_utils.cpp | CMakeFiles/simulate_auton_path.dir/src/movement_utils.cpp.o.modmap || cmake_object_order_depends_target_simulate_auton_path CMakeFiles/simulate_auton_path.dir/CXX.dd
+  DEP_FILE = CMakeFiles/simulate_auton_path.dir/src/movement_utils.cpp.o.d
+  DYNDEP_MODULE_MAP_FILE = CMakeFiles/simulate_auton_path.dir/src/movement_utils.cpp.o.modmap
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/fox/code/arc_length_cpp/include
+  OBJECT_DIR = CMakeFiles/simulate_auton_path.dir
+  OBJECT_FILE_DIR = CMakeFiles/simulate_auton_path.dir/src
+  dyndep = CMakeFiles/simulate_auton_path.dir/CXX.dd
+
+build CMakeFiles/simulate_auton_path.dir/src/pose.cpp.o.ddi: CXX_SCAN__simulate_auton_path_Debug /home/fox/code/arc_length_cpp/src/pose.cpp || cmake_object_order_depends_target_simulate_auton_path
+  DEP_FILE = CMakeFiles/simulate_auton_path.dir/src/pose.cpp.o.ddi.d
+  DYNDEP_INTERMEDIATE_FILE = CMakeFiles/simulate_auton_path.dir/src/pose.cpp.o.ddi
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/fox/code/arc_length_cpp/include
+  OBJ_FILE = CMakeFiles/simulate_auton_path.dir/src/pose.cpp.o
+  PREPROCESSED_OUTPUT_FILE = CMakeFiles/simulate_auton_path.dir/src/pose.cpp.o.ddi.i
+
+build CMakeFiles/simulate_auton_path.dir/src/pose.cpp.o: CXX_COMPILER__simulate_auton_path_scanned_Debug /home/fox/code/arc_length_cpp/src/pose.cpp | CMakeFiles/simulate_auton_path.dir/src/pose.cpp.o.modmap || cmake_object_order_depends_target_simulate_auton_path CMakeFiles/simulate_auton_path.dir/CXX.dd
+  DEP_FILE = CMakeFiles/simulate_auton_path.dir/src/pose.cpp.o.d
+  DYNDEP_MODULE_MAP_FILE = CMakeFiles/simulate_auton_path.dir/src/pose.cpp.o.modmap
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/fox/code/arc_length_cpp/include
+  OBJECT_DIR = CMakeFiles/simulate_auton_path.dir
+  OBJECT_FILE_DIR = CMakeFiles/simulate_auton_path.dir/src
+  dyndep = CMakeFiles/simulate_auton_path.dir/CXX.dd
+
+build CMakeFiles/simulate_auton_path.dir/src/simulate_pros_utils.cpp.o.ddi: CXX_SCAN__simulate_auton_path_Debug /home/fox/code/arc_length_cpp/src/simulate_pros_utils.cpp || cmake_object_order_depends_target_simulate_auton_path
+  DEP_FILE = CMakeFiles/simulate_auton_path.dir/src/simulate_pros_utils.cpp.o.ddi.d
+  DYNDEP_INTERMEDIATE_FILE = CMakeFiles/simulate_auton_path.dir/src/simulate_pros_utils.cpp.o.ddi
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/fox/code/arc_length_cpp/include
+  OBJ_FILE = CMakeFiles/simulate_auton_path.dir/src/simulate_pros_utils.cpp.o
+  PREPROCESSED_OUTPUT_FILE = CMakeFiles/simulate_auton_path.dir/src/simulate_pros_utils.cpp.o.ddi.i
+
+build CMakeFiles/simulate_auton_path.dir/src/simulate_pros_utils.cpp.o: CXX_COMPILER__simulate_auton_path_scanned_Debug /home/fox/code/arc_length_cpp/src/simulate_pros_utils.cpp | CMakeFiles/simulate_auton_path.dir/src/simulate_pros_utils.cpp.o.modmap || cmake_object_order_depends_target_simulate_auton_path CMakeFiles/simulate_auton_path.dir/CXX.dd
+  DEP_FILE = CMakeFiles/simulate_auton_path.dir/src/simulate_pros_utils.cpp.o.d
+  DYNDEP_MODULE_MAP_FILE = CMakeFiles/simulate_auton_path.dir/src/simulate_pros_utils.cpp.o.modmap
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/fox/code/arc_length_cpp/include
+  OBJECT_DIR = CMakeFiles/simulate_auton_path.dir
+  OBJECT_FILE_DIR = CMakeFiles/simulate_auton_path.dir/src
+  dyndep = CMakeFiles/simulate_auton_path.dir/CXX.dd
+
+build CMakeFiles/simulate_auton_path.dir/src/util.cpp.o.ddi: CXX_SCAN__simulate_auton_path_Debug /home/fox/code/arc_length_cpp/src/util.cpp || cmake_object_order_depends_target_simulate_auton_path
+  DEP_FILE = CMakeFiles/simulate_auton_path.dir/src/util.cpp.o.ddi.d
+  DYNDEP_INTERMEDIATE_FILE = CMakeFiles/simulate_auton_path.dir/src/util.cpp.o.ddi
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/fox/code/arc_length_cpp/include
+  OBJ_FILE = CMakeFiles/simulate_auton_path.dir/src/util.cpp.o
+  PREPROCESSED_OUTPUT_FILE = CMakeFiles/simulate_auton_path.dir/src/util.cpp.o.ddi.i
+
+build CMakeFiles/simulate_auton_path.dir/src/util.cpp.o: CXX_COMPILER__simulate_auton_path_scanned_Debug /home/fox/code/arc_length_cpp/src/util.cpp | CMakeFiles/simulate_auton_path.dir/src/util.cpp.o.modmap || cmake_object_order_depends_target_simulate_auton_path CMakeFiles/simulate_auton_path.dir/CXX.dd
+  DEP_FILE = CMakeFiles/simulate_auton_path.dir/src/util.cpp.o.d
+  DYNDEP_MODULE_MAP_FILE = CMakeFiles/simulate_auton_path.dir/src/util.cpp.o.modmap
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/fox/code/arc_length_cpp/include
+  OBJECT_DIR = CMakeFiles/simulate_auton_path.dir
+  OBJECT_FILE_DIR = CMakeFiles/simulate_auton_path.dir/src
+  dyndep = CMakeFiles/simulate_auton_path.dir/CXX.dd
+
+build CMakeFiles/simulate_auton_path.dir/CXX.dd | /home/fox/code/arc_length_cpp/cmake-build-debug/CMakeFiles/simulate_auton_path.dir/CXXModules.json CMakeFiles/simulate_auton_path.dir/src/aux.cpp.o.modmap CMakeFiles/simulate_auton_path.dir/src/aux_task.cpp.o.modmap CMakeFiles/simulate_auton_path.dir/src/chassis.cpp.o.modmap CMakeFiles/simulate_auton_path.dir/src/extended_chassis.cpp.o.modmap CMakeFiles/simulate_auton_path.dir/src/main.cpp.o.modmap CMakeFiles/simulate_auton_path.dir/src/movement_utils.cpp.o.modmap CMakeFiles/simulate_auton_path.dir/src/pose.cpp.o.modmap CMakeFiles/simulate_auton_path.dir/src/simulate_pros_utils.cpp.o.modmap CMakeFiles/simulate_auton_path.dir/src/util.cpp.o.modmap: CXX_DYNDEP__simulate_auton_path_Debug CMakeFiles/simulate_auton_path.dir/src/aux.cpp.o.ddi CMakeFiles/simulate_auton_path.dir/src/aux_task.cpp.o.ddi CMakeFiles/simulate_auton_path.dir/src/chassis.cpp.o.ddi CMakeFiles/simulate_auton_path.dir/src/extended_chassis.cpp.o.ddi CMakeFiles/simulate_auton_path.dir/src/main.cpp.o.ddi CMakeFiles/simulate_auton_path.dir/src/movement_utils.cpp.o.ddi CMakeFiles/simulate_auton_path.dir/src/pose.cpp.o.ddi CMakeFiles/simulate_auton_path.dir/src/simulate_pros_utils.cpp.o.ddi CMakeFiles/simulate_auton_path.dir/src/util.cpp.o.ddi | /home/fox/code/arc_length_cpp/cmake-build-debug/CMakeFiles/simulate_auton_path.dir/CXXDependInfo.json
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target arc_length_cpp
+# Link build statements for EXECUTABLE target simulate_auton_path
 
 
 #############################################
-# Link the executable arc_length_cpp
+# Link the executable simulate_auton_path
 
-build arc_length_cpp: CXX_EXECUTABLE_LINKER__arc_length_cpp_Debug CMakeFiles/arc_length_cpp.dir/main.cpp.o
+build simulate_auton_path: CXX_EXECUTABLE_LINKER__simulate_auton_path_Debug CMakeFiles/simulate_auton_path.dir/src/aux.cpp.o CMakeFiles/simulate_auton_path.dir/src/aux_task.cpp.o CMakeFiles/simulate_auton_path.dir/src/chassis.cpp.o CMakeFiles/simulate_auton_path.dir/src/extended_chassis.cpp.o CMakeFiles/simulate_auton_path.dir/src/main.cpp.o CMakeFiles/simulate_auton_path.dir/src/movement_utils.cpp.o CMakeFiles/simulate_auton_path.dir/src/pose.cpp.o CMakeFiles/simulate_auton_path.dir/src/simulate_pros_utils.cpp.o CMakeFiles/simulate_auton_path.dir/src/util.cpp.o
   FLAGS = -g
-  OBJECT_DIR = CMakeFiles/arc_length_cpp.dir
+  OBJECT_DIR = CMakeFiles/simulate_auton_path.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = arc_length_cpp
-  TARGET_PDB = arc_length_cpp.dbg
-
-# =============================================================================
-# Object build statements for EXECUTABLE target compile_time_arclength
-
-
-#############################################
-# Order-only phony target for compile_time_arclength
-
-build cmake_object_order_depends_target_compile_time_arclength: phony || .
-
-build CMakeFiles/compile_time_arclength.dir/compile_time_arclength.cpp.o.ddi: CXX_SCAN__compile_time_arclength_Debug /home/fox/code/arc_length_cpp/compile_time_arclength.cpp || cmake_object_order_depends_target_compile_time_arclength
-  DEP_FILE = CMakeFiles/compile_time_arclength.dir/compile_time_arclength.cpp.o.ddi.d
-  DYNDEP_INTERMEDIATE_FILE = CMakeFiles/compile_time_arclength.dir/compile_time_arclength.cpp.o.ddi
-  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  OBJ_FILE = CMakeFiles/compile_time_arclength.dir/compile_time_arclength.cpp.o
-  PREPROCESSED_OUTPUT_FILE = CMakeFiles/compile_time_arclength.dir/compile_time_arclength.cpp.o.ddi.i
-
-build CMakeFiles/compile_time_arclength.dir/compile_time_arclength.cpp.o: CXX_COMPILER__compile_time_arclength_scanned_Debug /home/fox/code/arc_length_cpp/compile_time_arclength.cpp | CMakeFiles/compile_time_arclength.dir/compile_time_arclength.cpp.o.modmap || cmake_object_order_depends_target_compile_time_arclength CMakeFiles/compile_time_arclength.dir/CXX.dd
-  DEP_FILE = CMakeFiles/compile_time_arclength.dir/compile_time_arclength.cpp.o.d
-  DYNDEP_MODULE_MAP_FILE = CMakeFiles/compile_time_arclength.dir/compile_time_arclength.cpp.o.modmap
-  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles/compile_time_arclength.dir
-  OBJECT_FILE_DIR = CMakeFiles/compile_time_arclength.dir
-  dyndep = CMakeFiles/compile_time_arclength.dir/CXX.dd
-
-build CMakeFiles/compile_time_arclength.dir/CXX.dd | /home/fox/code/arc_length_cpp/cmake-build-debug/CMakeFiles/compile_time_arclength.dir/CXXModules.json CMakeFiles/compile_time_arclength.dir/compile_time_arclength.cpp.o.modmap: CXX_DYNDEP__compile_time_arclength_Debug CMakeFiles/compile_time_arclength.dir/compile_time_arclength.cpp.o.ddi | /home/fox/code/arc_length_cpp/cmake-build-debug/CMakeFiles/compile_time_arclength.dir/CXXDependInfo.json
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target compile_time_arclength
-
-
-#############################################
-# Link the executable compile_time_arclength
-
-build compile_time_arclength: CXX_EXECUTABLE_LINKER__compile_time_arclength_Debug CMakeFiles/compile_time_arclength.dir/compile_time_arclength.cpp.o
-  FLAGS = -g
-  OBJECT_DIR = CMakeFiles/compile_time_arclength.dir
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = compile_time_arclength
-  TARGET_PDB = compile_time_arclength.dbg
+  TARGET_FILE = simulate_auton_path
+  TARGET_PDB = simulate_auton_path.dbg
 
 
 #############################################
@@ -158,7 +254,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /home/fox/code/arc_length_cpp/cmake-build-debug
 
-build all: phony arc_length_cpp compile_time_arclength
+build all: phony simulate_auton_path
 
 # =============================================================================
 # Built-in targets

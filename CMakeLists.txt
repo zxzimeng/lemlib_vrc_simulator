@@ -1,8 +1,16 @@
 cmake_minimum_required(VERSION 3.29)
-project(arc_length_cpp)
+project(simulate_auton_path)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(arc_length_cpp main.cpp)
+file(GLOB_RECURSE HEADERS "include/*.h" "include/*.hpp")
+file(GLOB_RECURSE SOURCES "src/*.cpp")
 
-add_executable(compile_time_arclength compile_time_arclength.cpp)
+
+include_directories("include/")
+# Add executable with all source files
+add_executable(${PROJECT_NAME} ${SOURCES}
+        src/
+        include/aux.h
+        src/aux_task.cpp
+        src/aux_task.h)

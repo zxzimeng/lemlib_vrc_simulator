@@ -163,9 +163,11 @@ CMakeFiles/simulate_auton_path.dir/src/aux_task.cpp.o.ddi: \
  /usr/include/c++/14/bits/vector.tcc \
  /home/fox/code/arc_length_cpp/include/movement_utils.h \
  /home/fox/code/arc_length_cpp/include/simulate_pros_utils.h \
- /home/fox/code/arc_length_cpp/include/aux.h /usr/include/c++/14/iostream \
- /usr/include/c++/14/ostream /usr/include/c++/14/ios \
- /usr/include/c++/14/exception /usr/include/c++/14/bits/exception_ptr.h \
+ /home/fox/code/arc_length_cpp/include/aux.h \
+ /home/fox/code/arc_length_cpp/include/simulating_code.h \
+ /usr/include/c++/14/iostream /usr/include/c++/14/ostream \
+ /usr/include/c++/14/ios /usr/include/c++/14/exception \
+ /usr/include/c++/14/bits/exception_ptr.h \
  /usr/include/c++/14/bits/cxxabi_init_exception.h \
  /usr/include/c++/14/typeinfo /usr/include/c++/14/bits/nested_exception.h \
  /usr/include/c++/14/bits/ios_base.h /usr/include/c++/14/ext/atomicity.h \

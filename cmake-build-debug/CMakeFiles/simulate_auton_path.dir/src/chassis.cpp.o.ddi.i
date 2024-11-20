@@ -77259,9 +77259,8 @@ public:
 
     void processMovement(movement movement_s, transform_across_field transformation = {false, false});;
 
-};
-
-}
+};}
+void printPose(lemlib::Pose pose);
 # 6 "/home/fox/code/arc_length_cpp/include/main.h" 2
 
 
@@ -77324,18 +77323,33 @@ public:
 
 void handle_controller_inputs();
 # 12 "/home/fox/code/arc_length_cpp/include/main.h" 2
+# 1 "/home/fox/code/arc_length_cpp/include/simulating_code.h" 1
+
+
+
+
+
+
+void main_code();
+# 13 "/home/fox/code/arc_length_cpp/include/main.h" 2
 
 extern std::atomic<bool> stopflag;
+extern std::vector<lemlib::Pose> movements;
 extern Aux aux;
 extern lemlib::Pose robot_pose;
+extern lemlib::ExtendedChassis chassis;
 # 7 "/home/fox/code/arc_length_cpp/src/chassis.cpp" 2
 
 
 void lemlib::Chassis::setPose(lemlib::Pose pose, bool radians) {
     robot_pose=pose;
+    robot_pose.theta=sanitizeAngle(robot_pose.theta, false);
+    movements.emplace_back(robot_pose);
+    printf("Set Point: x: %.3f y: %.3f theta: %.3f\n", pose.x, pose.y, sanitizeAngle(robot_pose.theta, false));
 }
 
 lemlib::Pose lemlib::Chassis::getPose(bool radians, bool standardPos) {
+    robot_pose.theta=sanitizeAngle(robot_pose.theta, false);
     return robot_pose;
 }
 
@@ -77349,9 +77363,9 @@ void lemlib::Chassis::turnToPoint(Pose pose, int timeout, TurnToPointParams para
 
 
     float arrivalTheta = gamma * 180.0 / 
-# 26 "/home/fox/code/arc_length_cpp/src/chassis.cpp" 3 4
+# 30 "/home/fox/code/arc_length_cpp/src/chassis.cpp" 3 4
                                         3.14159265358979323846
-# 26 "/home/fox/code/arc_length_cpp/src/chassis.cpp"
+# 30 "/home/fox/code/arc_length_cpp/src/chassis.cpp"
                                             ;
 
 
@@ -77363,45 +77377,31 @@ void lemlib::Chassis::turnToPoint(Pose pose, int timeout, TurnToPointParams para
     } else if (arrivalTheta < -180.0) {
         arrivalTheta += 360.0;
     }
-
     robot_pose.theta = arrivalTheta;
+    robot_pose.theta=sanitizeAngle(robot_pose.theta, false);
+    movements.emplace_back(robot_pose);
+    printf("Turned to Point: (x: %.3f y: %.3f) | Now at theta: %.3f\n", pose.x, pose.y, sanitizeAngle(arrivalTheta, false));
 }
 
 void lemlib::Chassis::turnToHeading(float theta, int timeout, TurnToHeadingParams params, bool async) {
     robot_pose.theta = theta;
+    robot_pose.theta=sanitizeAngle(robot_pose.theta, false);
+    movements.emplace_back(robot_pose);
+    printf("Turned to Heading: %.3f\n", sanitizeAngle(theta, false));
 }
 
 void lemlib::Chassis::moveToPose(Pose pose, int timeout, MoveToPoseParams params, bool async) {
     robot_pose=pose;
+    robot_pose.theta=sanitizeAngle(robot_pose.theta, false);
+    movements.emplace_back(robot_pose);
+    printf("Moved to Pose: x: %.3f y: %.3f theta: %.3f\n", pose.x, pose.y, sanitizeAngle(pose.theta, false));
 }
 
 void lemlib::moveToPoint(Pose pose, int timeout, MoveToPointParams params, bool async) {
+# 81 "/home/fox/code/arc_length_cpp/src/chassis.cpp"
+    robot_pose=pose;
+    robot_pose.theta = sanitizeAngle(robot_pose.theta, false);
 
-    float deltaX = pose.x - robot_pose.x;
-    float deltaY = pose.y - robot_pose.y;
-
-
-    float gamma = std::atan2(deltaY, deltaX);
-
-
-    float arrivalTheta = gamma * 180.0 / 
-# 58 "/home/fox/code/arc_length_cpp/src/chassis.cpp" 3 4
-                                        3.14159265358979323846
-# 58 "/home/fox/code/arc_length_cpp/src/chassis.cpp"
-                                            ;
-
-
-    arrivalTheta = 90.0 - arrivalTheta;
-
-
-    if (arrivalTheta > 180.0) {
-        arrivalTheta -= 360.0;
-    } else if (arrivalTheta < -180.0) {
-        arrivalTheta += 360.0;
-    }
-
-
-    robot_pose.x = pose.x;
-    robot_pose.y = pose.y;
-    robot_pose.theta = arrivalTheta;
+    movements.emplace_back(robot_pose);
+    printf("Moved to Point: x: %.3f y: %.3f theta: %.3f\n", pose.x, pose.y, sanitizeAngle(robot_pose.theta, false));
 }

@@ -57153,9 +57153,8 @@ public:
 
     void processMovement(movement movement_s, transform_across_field transformation = {false, false});;
 
-};
-
-}
+};}
+void printPose(lemlib::Pose pose);
 # 6 "/home/fox/code/arc_length_cpp/include/main.h" 2
 
 
@@ -57218,10 +57217,21 @@ public:
 
 void handle_controller_inputs();
 # 12 "/home/fox/code/arc_length_cpp/include/main.h" 2
+# 1 "/home/fox/code/arc_length_cpp/include/simulating_code.h" 1
+
+
+
+
+
+
+void main_code();
+# 13 "/home/fox/code/arc_length_cpp/include/main.h" 2
 
 extern std::atomic<bool> stopflag;
+extern std::vector<lemlib::Pose> movements;
 extern Aux aux;
 extern lemlib::Pose robot_pose;
+extern lemlib::ExtendedChassis chassis;
 # 2 "/home/fox/code/arc_length_cpp/src/extended_chassis.cpp" 2
 
 
@@ -58064,6 +58074,9 @@ namespace std __attribute__ ((__visibility__ ("default")))
 
 
 # 6 "/home/fox/code/arc_length_cpp/src/extended_chassis.cpp"
+void printPose(lemlib::Pose pose) {
+    printf("Output Debug Pose: x:%f y:%f theta:%f \n", pose.x, pose.y, pose.theta);
+}
 namespace lemlib {
 void ExtendedChassis::moveToPoseWithEarlyExit(Pose pose, float timeout, MoveToPoseParams params, float exit_distance,
                                               bool async , bool degrees ) {
@@ -58077,7 +58090,7 @@ void ExtendedChassis::moveToPointWithEarlyExit(Pose pose, float timeout, MoveToP
         throw std::out_of_range("Exit distance must be non-negative");
     }
 
-    Pose pose_n = calculatePoseWithOffsetInDirection(pose, -exit_distance, false);
+    Pose pose_n = calculatePoseWithOffsetInDirection(pose, -exit_distance, true);
     moveToPoint(pose_n, timeout, params, false);
 
 
@@ -58087,12 +58100,13 @@ void ExtendedChassis::moveToPointWithEarlyExit(Pose pose, float timeout, MoveToP
 void ExtendedChassis::processMovement(movement movement_s,
                                       transform_across_field transformation ) {
     movement transformed_movement = transformMovement(calculateOffset(movement_s), transformation);
+
     if (std::holds_alternative<MoveToPoseParams>(transformed_movement.moveParams)) {
         MoveToPoseParams params = std::get<MoveToPoseParams>(movement_s.moveParams);
-        moveToPoseWithEarlyExit(movement_s.pose, movement_s.timeout, params, movement_s.exitDistance, movement_s.async, movement_s.degrees);
+        moveToPoseWithEarlyExit(transformed_movement.pose, transformed_movement.timeout, params, transformed_movement.exitDistance, transformed_movement.async, transformed_movement.degrees);
     } else if (std::holds_alternative<MoveToPointParams>(transformed_movement.moveParams)) {
         MoveToPointParams params = std::get<MoveToPointParams>(movement_s.moveParams);
-        moveToPointWithEarlyExit(movement_s.pose, movement_s.timeout, params, movement_s.exitDistance, movement_s.async);
+        moveToPointWithEarlyExit(transformed_movement.pose, transformed_movement.timeout, params, transformed_movement.exitDistance, transformed_movement.async);
     }
 }
 }

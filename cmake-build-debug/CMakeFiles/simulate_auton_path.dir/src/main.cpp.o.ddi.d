@@ -159,6 +159,8 @@ CMakeFiles/simulate_auton_path.dir/src/main.cpp.o.ddi: \
  /home/fox/code/arc_length_cpp/include/simulate_pros_utils.h \
  /home/fox/code/arc_length_cpp/include/aux.h \
  /home/fox/code/arc_length_cpp/include/aux_task.h \
+ /home/fox/code/arc_length_cpp/include/simulating_code.h \
+ /home/fox/code/arc_length_cpp/include/generate_jerryio.h \
  /usr/include/c++/14/thread /usr/include/c++/14/stop_token \
  /usr/include/c++/14/bits/std_thread.h \
  /usr/include/c++/14/bits/unique_ptr.h /usr/include/c++/14/ostream \

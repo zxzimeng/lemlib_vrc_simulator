@@ -57143,9 +57143,8 @@ public:
 
     void processMovement(movement movement_s, transform_across_field transformation = {false, false});;
 
-};
-
-}
+};}
+void printPose(lemlib::Pose pose);
 # 6 "/home/fox/code/arc_length_cpp/include/main.h" 2
 
 
@@ -57208,11 +57207,27 @@ public:
 
 void handle_controller_inputs();
 # 12 "/home/fox/code/arc_length_cpp/include/main.h" 2
+# 1 "/home/fox/code/arc_length_cpp/include/simulating_code.h" 1
+
+
+
+
+
+
+void main_code();
+# 13 "/home/fox/code/arc_length_cpp/include/main.h" 2
 
 extern std::atomic<bool> stopflag;
+extern std::vector<lemlib::Pose> movements;
 extern Aux aux;
 extern lemlib::Pose robot_pose;
+extern lemlib::ExtendedChassis chassis;
 # 3 "/home/fox/code/arc_length_cpp/src/main.cpp" 2
+
+# 1 "/home/fox/code/arc_length_cpp/include/generate_jerryio.h" 1
+       
+void generatePathFile(const std::string &filename);
+# 5 "/home/fox/code/arc_length_cpp/src/main.cpp" 2
 # 1 "/usr/include/c++/14/thread" 1 3
 # 32 "/usr/include/c++/14/thread" 3
        
@@ -70320,81 +70335,21 @@ namespace std __attribute__ ((__visibility__ ("default")))
 # 372 "/usr/include/c++/14/thread" 3
 
 }
-# 4 "/home/fox/code/arc_length_cpp/src/main.cpp" 2
+# 6 "/home/fox/code/arc_length_cpp/src/main.cpp" 2
 
-
-# 5 "/home/fox/code/arc_length_cpp/src/main.cpp"
+# 6 "/home/fox/code/arc_length_cpp/src/main.cpp"
 bool jerryio = true;
 std::atomic<bool> stopflag(false);
 lemlib::ExtendedChassis chassis;
 lemlib::Pose robot_pose={0,0,0};
+std::vector<lemlib::Pose> movements;
 Aux aux;
 
 
-using namespace lemlib;
 int main() {
-    aux.conveyor_state=Aux::CONVEYOR_FORWARD;
-    aux.enact_conveyor_state();
-    jerryio=true;
-    lemlib::Pose red_right_skill_starting_pose = {(-24 - 28.5), (-24 + 2.35), 305};
-    chassis.setPose(red_right_skill_starting_pose);
-
-
-    transform_across_field transformation = {false, false};
-
-
-    chassis.processMovement(movement{
-                                .pose = red_right_skill_starting_pose, .offset_distance = -14.5,
-                                .perp_offset_distance = 0,
-                                .moveParams = MoveToPointParams{.forwards = false, .minSpeed = 30}, .exitDistance = 0,
-                                .timeout = 4000,
-                            }, {false, false});
-    aux.mogo_state = Aux::MOGO_LOCKED;
-    aux.enact_mogo_state();
-    delay(500);
-# 41 "/home/fox/code/arc_length_cpp/src/main.cpp"
-    chassis.turnToHeading(90, 1000, {}, false);
-    chassis.processMovement(movement{
-                                .pose = {-24, -28, 90}, .offset_distance = 7,
-                                .perp_offset_distance = 0,
-                                .moveParams = MoveToPoseParams{.forwards = true, .minSpeed = 50}, .exitDistance = 0,
-                                .timeout = 4000,
-                            }, {false, false});
-
-
-
-
-    chassis.processMovement(movement{
-                                .pose = {
-                                    chassis.getPose().x, chassis.getPose().y,
-                                    transformPose({0, 0, -90}, transformation).theta
-                                },
-                                .offset_distance = -25,
-                                .perp_offset_distance = 2,
-                                .moveParams = MoveToPoseParams{.forwards = false, .minSpeed = 60}, .exitDistance = 0,
-                                .timeout = 4000,
-                            }, {false, false});
-    if (transformation == transform_across_field{true, false}
-    ) {
-        chassis.turnToHeading(-40, 1000,
-                              {AngularDirection::CW_CLOCKWISE},
-                              false);
-    } else {
-        chassis.turnToHeading(-130, 1000,
-                              {AngularDirection::CCW_COUNTERCLOCKWISE},
-                              false);
-    }
-    delay(800);
-    chassis.processMovement(movement{
-                                .pose = chassis.getPose(), .offset_distance = 10, .perp_offset_distance = -2,
-                                .moveParams = MoveToPointParams{.forwards = true, .minSpeed = 40}, .exitDistance = 0,
-                                .timeout = 4000,
-                            }, {false, false});
-    delay(800);
-    aux.mogo_state=Aux::MOGO_UNLOCKED;
-    aux.enact_mogo_state();
-
+    main_code();
 
     stopflag=true;
 
+    generatePathFile("output.txt");
 }

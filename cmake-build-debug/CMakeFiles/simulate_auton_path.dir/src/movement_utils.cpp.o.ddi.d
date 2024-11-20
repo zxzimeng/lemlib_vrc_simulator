@@ -162,4 +162,5 @@ CMakeFiles/simulate_auton_path.dir/src/movement_utils.cpp.o.ddi: \
  /home/fox/code/arc_length_cpp/include/movement_utils.h \
  /home/fox/code/arc_length_cpp/include/simulate_pros_utils.h \
  /home/fox/code/arc_length_cpp/include/aux.h \
- /home/fox/code/arc_length_cpp/include/aux_task.h
+ /home/fox/code/arc_length_cpp/include/aux_task.h \
+ /home/fox/code/arc_length_cpp/include/simulating_code.h

@@ -1,4 +1,4 @@
-/opt/clion-2024.2.2/bin/cmake/linux/aarch64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/opt/clion-2024.2.2/bin/ninja/linux/aarch64/ninja -G Ninja -S /home/fox/code/arc_length_cpp -B /home/fox/code/arc_length_cpp/cmake-build-debug
+/home/fox/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/aarch64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/fox/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/aarch64/ninja -G Ninja -S /home/fox/code/arc_length_cpp -B /home/fox/code/arc_length_cpp/cmake-build-debug
 -- Configuring done (0.0s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/fox/code/arc_length_cpp/cmake-build-debug

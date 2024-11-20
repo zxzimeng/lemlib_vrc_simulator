@@ -57153,9 +57153,8 @@ public:
 
     void processMovement(movement movement_s, transform_across_field transformation = {false, false});;
 
-};
-
-}
+};}
+void printPose(lemlib::Pose pose);
 # 6 "/home/fox/code/arc_length_cpp/include/main.h" 2
 
 
@@ -57218,10 +57217,21 @@ public:
 
 void handle_controller_inputs();
 # 12 "/home/fox/code/arc_length_cpp/include/main.h" 2
+# 1 "/home/fox/code/arc_length_cpp/include/simulating_code.h" 1
+
+
+
+
+
+
+void main_code();
+# 13 "/home/fox/code/arc_length_cpp/include/main.h" 2
 
 extern std::atomic<bool> stopflag;
+extern std::vector<lemlib::Pose> movements;
 extern Aux aux;
 extern lemlib::Pose robot_pose;
+extern lemlib::ExtendedChassis chassis;
 # 2 "/home/fox/code/arc_length_cpp/src/movement_utils.cpp" 2
 
 
@@ -57267,7 +57277,7 @@ Pose calculatePoseWithOffsetInPerpDirection(Pose pose, float offset, bool degree
     Pose target_pose = {0, 0, 0};
     target_pose.x = pose.x + offset * cos(angle);
     target_pose.y = pose.y - offset * sin(angle);
-    target_pose.theta = pose.theta;
+    target_pose.theta = degrees ? sanitizeAngle(pose.theta, false) : sanitizeAngle(pose.theta, true);
     return target_pose;
 }
 
@@ -57279,12 +57289,11 @@ Pose calculatePoseWithOffsetInDirection(Pose pose, float offset, bool degrees ) 
 # 52 "/home/fox/code/arc_length_cpp/src/movement_utils.cpp"
                          - (degrees ? degToRad(pose.theta) : pose.theta));
 
-
     Pose target_pose = {0, 0, 0};
     target_pose.x = pose.x + offset * cos(angle);
     target_pose.y = pose.y + offset * sin(angle);
-    target_pose.theta = degrees ? sanitizeAngle(pose.theta, false) : sanitizeAngle(pose.theta, true);
 
+    target_pose.theta = degrees ? sanitizeAngle(pose.theta, false) : sanitizeAngle(pose.theta, true);
 
     return target_pose;
 }

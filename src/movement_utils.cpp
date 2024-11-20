@@ -43,21 +43,20 @@ Pose calculatePoseWithOffsetInPerpDirection(Pose pose, float offset, bool degree
     Pose target_pose = {0, 0, 0};
     target_pose.x = pose.x + offset * cos(angle);
     target_pose.y = pose.y - offset * sin(angle);
-    target_pose.theta = pose.theta; // Keep theta the same
+    target_pose.theta = degrees ? sanitizeAngle(pose.theta, false) : sanitizeAngle(pose.theta, true);
     return target_pose;
 }
 
 Pose calculatePoseWithOffsetInDirection(Pose pose, float offset, bool degrees ) {
     // Convert theta to radians if necessary
     float angle = (M_PI_2 - (degrees ? degToRad(pose.theta) : pose.theta));
-
     // Calculate the target pose based on offset
     Pose target_pose = {0, 0, 0};
     target_pose.x = pose.x + offset * cos(angle);
     target_pose.y = pose.y + offset * sin(angle);
+    // printPose(target_pose);
     target_pose.theta = degrees ? sanitizeAngle(pose.theta, false) : sanitizeAngle(pose.theta, true);
     // Keep theta the same
-
     return target_pose;
 }
 

@@ -22,6 +22,5 @@ public:
     // Method for processing movement (with or without transformation)
     void processMovement(movement movement_s, transform_across_field transformation = {false, false});;
 
-};
-
-}
+};}
+void printPose(lemlib::Pose pose);

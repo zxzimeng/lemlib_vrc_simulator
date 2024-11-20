@@ -38,7 +38,7 @@ float aproximateDistanceToPoseWithBoomerang(Pose current_pose, Pose pose, MoveTo
 double calculateArcLength(double x_start, double y_start, double x_end,
                                      double y_end, double theta_end, double d_lead, int n);
 
-inline Pose transformPose(const Pose &pose, transform_across_field transformation) {
+inline Pose transformOnlyPose(const Pose &pose, transform_across_field transformation) {
     Pose newPose = pose;
     if (transformation.mirrorHorizontal) {
         newPose.y *= -1;
@@ -53,7 +53,7 @@ inline Pose transformPose(const Pose &pose, transform_across_field transformatio
 
 inline movement transformMovement(movement movement_s, transform_across_field transformation) {
     movement newMovement = movement_s;
-    newMovement.pose = transformPose(movement_s.pose, transformation);
+    newMovement.pose = transformOnlyPose(movement_s.pose, transformation);
     return newMovement;
 }
 

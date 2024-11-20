@@ -57155,9 +57155,8 @@ public:
 
     void processMovement(movement movement_s, transform_across_field transformation = {false, false});;
 
-};
-
-}
+};}
+void printPose(lemlib::Pose pose);
 # 6 "/home/fox/code/arc_length_cpp/include/main.h" 2
 
 
@@ -57215,10 +57214,21 @@ public:
 };
 # 11 "/home/fox/code/arc_length_cpp/include/main.h" 2
 
+# 1 "/home/fox/code/arc_length_cpp/include/simulating_code.h" 1
+
+
+
+
+
+
+void main_code();
+# 13 "/home/fox/code/arc_length_cpp/include/main.h" 2
 
 extern std::atomic<bool> stopflag;
+extern std::vector<lemlib::Pose> movements;
 extern Aux aux;
 extern lemlib::Pose robot_pose;
+extern lemlib::ExtendedChassis chassis;
 # 3 "/home/fox/code/arc_length_cpp/include/aux_task.h" 2
 
 void handle_controller_inputs();

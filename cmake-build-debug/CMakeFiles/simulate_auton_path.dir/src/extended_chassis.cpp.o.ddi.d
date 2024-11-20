@@ -163,6 +163,7 @@ CMakeFiles/simulate_auton_path.dir/src/extended_chassis.cpp.o.ddi: \
  /home/fox/code/arc_length_cpp/include/simulate_pros_utils.h \
  /home/fox/code/arc_length_cpp/include/aux.h \
  /home/fox/code/arc_length_cpp/include/aux_task.h \
+ /home/fox/code/arc_length_cpp/include/simulating_code.h \
  /usr/include/c++/14/stdexcept /usr/include/c++/14/exception \
  /usr/include/c++/14/bits/exception_ptr.h \
  /usr/include/c++/14/bits/cxxabi_init_exception.h \

@@ -1,7 +1,7 @@
-CMakeFiles/simulate_auton_path.dir/src/aux.cpp.o.ddi: \
- /home/fox/code/arc_length_cpp/src/aux.cpp /usr/include/stdc-predef.h \
- /home/fox/code/arc_length_cpp/include/main.h /usr/include/c++/14/atomic \
- /usr/include/c++/14/bits/version.h \
+CMakeFiles/simulate_auton_path.dir/src/simulating_code.cpp.o.ddi: \
+ /home/fox/code/arc_length_cpp/src/simulating_code.cpp \
+ /usr/include/stdc-predef.h /home/fox/code/arc_length_cpp/include/main.h \
+ /usr/include/c++/14/atomic /usr/include/c++/14/bits/version.h \
  /usr/include/c++/14/aarch64-redhat-linux/bits/c++config.h \
  /usr/include/c++/14/aarch64-redhat-linux/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \

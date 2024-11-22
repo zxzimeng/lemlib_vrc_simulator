@@ -1,4 +1,6 @@
 #pragma once
+
+
 class Aux {
 public:
     // Enums for different states
@@ -13,33 +15,40 @@ public:
     enum ClawDirection { CW_TOWARDS_INSIDE, CCW_TOWARDS_OUTSIDE, CLAW_STOP };
 
     // Member variables
-    ConveyorState conveyor_state = CONVEYOR_STOP;
-    MogoState mogo_state = MOGO_UNLOCKED;
-    FlapState flap_state = FLAP_RETRACTED;
-    IntakeClawSystemState intake_claw_system_state = AUTO_CONVEYOR;
+    ConveyorState conveyorState = CONVEYOR_STOP;
+    MogoState mogoState = MOGO_UNLOCKED;
+    FlapState flapState = FLAP_RETRACTED;
+    IntakeClawSystemState intakeClawSystemState = MANUAL_CONVEYOR;
 
-    // bool ring_is_at_position = false;
-    // bool initial_calibration_line = false;
-    // int POTENTIOMETER_BASE = 12500; // percent
+    bool rightIsAtPosition = false;
+    bool initialCalibrationLine = false;
+    int POTENTIOMETER_BASE = 0; //
+
 
     // Constructor
     Aux();
 
-    FlapState get_toggled_flap_state();
+    FlapState getToggledFlapState();
 
-    IntakeClawSystemState get_toggled_intake_claw_system_state();
+    IntakeClawSystemState getToggledIntakeClawSystemState();
 
-    void update_screen_intake_claw_system_state();
+    void updateScreenIntakeClawSystemState();
 
-    void enact_conveyor_state();
+    void enactConveyorState();
 
-    // void watch_and_stop_when_ring_is_detected();
+    void watchStopWhenRingDetected();
 
-    void enact_mogo_state();
+    void enactMogoState();
 
-    void enact_flap_state();
+    void enactFlapState();
 
-    void spin_claw(ClawDirection direction, int voltage = 12000);
+    void spinClaw(ClawDirection direction, int voltage = 12000);
 
-    void tare_claw(int timeout = 5000);
+    void tareClaw(int timeout = 5000);
+
+    void enactMogoState(Aux::MogoState target_state);
+
+    void enactConveyorState(Aux::ConveyorState target_state);
+
+    void enactFlapState(Aux::FlapState target_state);
 };

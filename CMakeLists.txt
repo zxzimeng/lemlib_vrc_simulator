@@ -16,4 +16,5 @@ add_executable(${PROJECT_NAME} ${SOURCES}
         src/generate_jerryio.cpp
         include/generate_jerryio.h
         src/simulating_code.cpp
-        include/simulating_code.h)
+        include/simulating_code.h
+)

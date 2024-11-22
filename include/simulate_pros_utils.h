@@ -1,4 +1,5 @@
 #pragma once
 
-void delay(int n);
+
+namespace pros{void delay(int n);}
 

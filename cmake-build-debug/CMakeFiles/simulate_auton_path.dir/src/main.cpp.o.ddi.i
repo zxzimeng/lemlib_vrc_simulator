@@ -57100,7 +57100,7 @@ float aproximateDistanceToPoseWithBoomerang(Pose current_pose, Pose pose, MoveTo
 double calculateArcLength(double x_start, double y_start, double x_end,
                                      double y_end, double theta_end, double d_lead, int n);
 
-inline Pose transformPose(const Pose &pose, transform_across_field transformation) {
+inline Pose transformOnlyPose(const Pose &pose, transform_across_field transformation) {
     Pose newPose = pose;
     if (transformation.mirrorHorizontal) {
         newPose.y *= -1;
@@ -57115,7 +57115,7 @@ inline Pose transformPose(const Pose &pose, transform_across_field transformatio
 
 inline movement transformMovement(movement movement_s, transform_across_field transformation) {
     movement newMovement = movement_s;
-    newMovement.pose = transformPose(movement_s.pose, transformation);
+    newMovement.pose = transformOnlyPose(movement_s.pose, transformation);
     return newMovement;
 }
 
@@ -57152,10 +57152,13 @@ void printPose(lemlib::Pose pose);
 # 1 "/home/fox/code/arc_length_cpp/include/simulate_pros_utils.h" 1
        
 
-void delay(int n);
+
+namespace pros{void delay(int n);}
 # 10 "/home/fox/code/arc_length_cpp/include/main.h" 2
 # 1 "/home/fox/code/arc_length_cpp/include/aux.h" 1
        
+
+
 class Aux {
 public:
 
@@ -57170,35 +57173,42 @@ public:
     enum ClawDirection { CW_TOWARDS_INSIDE, CCW_TOWARDS_OUTSIDE, CLAW_STOP };
 
 
-    ConveyorState conveyor_state = CONVEYOR_STOP;
-    MogoState mogo_state = MOGO_UNLOCKED;
-    FlapState flap_state = FLAP_RETRACTED;
-    IntakeClawSystemState intake_claw_system_state = AUTO_CONVEYOR;
+    ConveyorState conveyorState = CONVEYOR_STOP;
+    MogoState mogoState = MOGO_UNLOCKED;
+    FlapState flapState = FLAP_RETRACTED;
+    IntakeClawSystemState intakeClawSystemState = MANUAL_CONVEYOR;
 
-
-
+    bool rightIsAtPosition = false;
+    bool initialCalibrationLine = false;
+    int POTENTIOMETER_BASE = 0;
 
 
 
     Aux();
 
-    FlapState get_toggled_flap_state();
+    FlapState getToggledFlapState();
 
-    IntakeClawSystemState get_toggled_intake_claw_system_state();
+    IntakeClawSystemState getToggledIntakeClawSystemState();
 
-    void update_screen_intake_claw_system_state();
+    void updateScreenIntakeClawSystemState();
 
-    void enact_conveyor_state();
+    void enactConveyorState();
 
+    void watchStopWhenRingDetected();
 
+    void enactMogoState();
 
-    void enact_mogo_state();
+    void enactFlapState();
 
-    void enact_flap_state();
+    void spinClaw(ClawDirection direction, int voltage = 12000);
 
-    void spin_claw(ClawDirection direction, int voltage = 12000);
+    void tareClaw(int timeout = 5000);
 
-    void tare_claw(int timeout = 5000);
+    void enactMogoState(Aux::MogoState target_state);
+
+    void enactConveyorState(Aux::ConveyorState target_state);
+
+    void enactFlapState(Aux::FlapState target_state);
 };
 # 11 "/home/fox/code/arc_length_cpp/include/main.h" 2
 # 1 "/home/fox/code/arc_length_cpp/include/aux_task.h" 1
@@ -57216,7 +57226,7 @@ void handle_controller_inputs();
 
 void main_code();
 # 13 "/home/fox/code/arc_length_cpp/include/main.h" 2
-
+extern bool skills_field;
 extern std::atomic<bool> stopflag;
 extern std::vector<lemlib::Pose> movements;
 extern Aux aux;
@@ -70340,6 +70350,7 @@ namespace std __attribute__ ((__visibility__ ("default")))
 # 6 "/home/fox/code/arc_length_cpp/src/main.cpp"
 bool jerryio = true;
 std::atomic<bool> stopflag(false);
+bool skills_field=false;
 lemlib::ExtendedChassis chassis;
 lemlib::Pose robot_pose={0,0,0};
 std::vector<lemlib::Pose> movements;

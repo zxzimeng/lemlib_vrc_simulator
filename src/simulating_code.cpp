@@ -1,8 +1,25 @@
-//
-// Created by fox on 11/20/24.
-//
 #include "main.h"
+
+//  > HORIZONTAL MIRROR
+//  ^   ┌───────────────────────┐
+//  RED │ -                   - │BLUE
+//  LEFT│                       │RIGHT > VERTICAL & HORIZONTAL MIRROR
+//      │                       │
+//      │                       │
+//      │                       │
+//      │                       │
+//   RED│                       │BLUE
+//      │                       │
+//      │                       │
+//      │                       │
+//      │          XXX          │
+// RED  │         RISKG         │BLUE
+// RIGHT│ +                   + │LEFT > VERTICAL MIRROR
+//      └───────────────────────┘
+
 using namespace lemlib;
+using namespace pros;
+
 
 void red_right_awp_base_movements(bool ladder, transform_across_field transformation) {
     Pose red_right_starting_pose = {-55.724, -31.446, -90};
@@ -30,11 +47,11 @@ void red_right_awp_base_movements(bool ladder, transform_across_field transforma
                             },
                             transformation);
     delay(500); // wait for objects to settle
-    aux.mogo_state = Aux::MOGO_LOCKED;
+    aux.enactMogoState(Aux::MOGO_LOCKED);
     // END MOVE AND LOCK
 
     // START CONVEYOR
-    aux.conveyor_state = Aux::CONVEYOR_FORWARD;
+    aux.enactConveyorState(Aux::CONVEYOR_FORWARD);
     // END START
 
     // AWAIT PRELOAD
@@ -55,7 +72,7 @@ void red_right_awp_base_movements(bool ladder, transform_across_field transforma
                             transformation);
     // END MOVE
     delay(800); // wait for objects to settle
-    aux.conveyor_state = Aux::CONVEYOR_STOP;
+    aux.enactConveyorState(Aux::CONVEYOR_STOP);
 
     chassis.processMovement(movement{
                                 .pose = {-26.407, -25.773, 180},
@@ -107,6 +124,7 @@ void red_right_awp_base_movements(bool ladder, transform_across_field transforma
     }
 }
 
+
 void red_right_base_movements(bool ladder, transform_across_field transformation) {
     Pose red_right_starting_pose = {-55.724, -31.446, -90};
     Pose starting_pose = transformOnlyPose(red_right_starting_pose, transformation);
@@ -133,11 +151,11 @@ void red_right_base_movements(bool ladder, transform_across_field transformation
                             },
                             transformation);
     delay(500); // wait for objects to settle
-    aux.mogo_state = Aux::MOGO_LOCKED;
+    aux.enactMogoState(Aux::MOGO_LOCKED);
     // END MOVE AND LOCK
 
     // START CONVEYOR
-    aux.conveyor_state = Aux::CONVEYOR_FORWARD;
+    aux.enactConveyorState(Aux::CONVEYOR_FORWARD);
     // END START
 
     // AWAIT PRELOAD
@@ -158,8 +176,8 @@ void red_right_base_movements(bool ladder, transform_across_field transformation
                             transformation);
     // END MOVE
     delay(2000);
-    aux.conveyor_state = Aux::CONVEYOR_STOP;
-    aux.mogo_state = Aux::MOGO_UNLOCKED;
+    aux.enactConveyorState(Aux::CONVEYOR_STOP);
+    aux.enactMogoState(Aux::MOGO_UNLOCKED);
     chassis.processMovement(movement{
                                 .pose = {-15, -44, -90},
                                 .offset_distance = 2,
@@ -194,5 +212,5 @@ void blue_right(bool ladder) {
 }
 
 void main_code() {
-    blue_right(true);
+    blue_left(true);
 }

@@ -1,7 +1,7 @@
-CMakeFiles/simulate_auton_path.dir/src/aux.cpp.o.ddi: \
- /home/fox/code/arc_length_cpp/src/aux.cpp /usr/include/stdc-predef.h \
- /home/fox/code/arc_length_cpp/include/main.h /usr/include/c++/14/atomic \
- /usr/include/c++/14/bits/version.h \
+CMakeFiles/simulate_auton_path.dir/src/generate_jerryio.cpp.o.ddi: \
+ /home/fox/code/arc_length_cpp/src/generate_jerryio.cpp \
+ /usr/include/stdc-predef.h /home/fox/code/arc_length_cpp/include/main.h \
+ /usr/include/c++/14/atomic /usr/include/c++/14/bits/version.h \
  /usr/include/c++/14/aarch64-redhat-linux/bits/c++config.h \
  /usr/include/c++/14/aarch64-redhat-linux/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -163,4 +163,39 @@ CMakeFiles/simulate_auton_path.dir/src/aux.cpp.o.ddi: \
  /home/fox/code/arc_length_cpp/include/simulate_pros_utils.h \
  /home/fox/code/arc_length_cpp/include/aux.h \
  /home/fox/code/arc_length_cpp/include/aux_task.h \
- /home/fox/code/arc_length_cpp/include/simulating_code.h
+ /home/fox/code/arc_length_cpp/include/simulating_code.h \
+ /home/fox/code/arc_length_cpp/include/generate_jerryio.h \
+ /usr/include/c++/14/fstream /usr/include/c++/14/istream \
+ /usr/include/c++/14/ios /usr/include/c++/14/exception \
+ /usr/include/c++/14/bits/exception_ptr.h \
+ /usr/include/c++/14/bits/cxxabi_init_exception.h \
+ /usr/include/c++/14/typeinfo /usr/include/c++/14/bits/nested_exception.h \
+ /usr/include/c++/14/bits/ios_base.h /usr/include/c++/14/ext/atomicity.h \
+ /usr/include/c++/14/aarch64-redhat-linux/bits/atomic_word.h \
+ /usr/include/sys/single_threaded.h \
+ /usr/include/c++/14/bits/locale_classes.h \
+ /usr/include/c++/14/bits/locale_classes.tcc \
+ /usr/include/c++/14/system_error \
+ /usr/include/c++/14/aarch64-redhat-linux/bits/error_constants.h \
+ /usr/include/c++/14/stdexcept /usr/include/c++/14/streambuf \
+ /usr/include/c++/14/bits/streambuf.tcc \
+ /usr/include/c++/14/bits/basic_ios.h \
+ /usr/include/c++/14/bits/locale_facets.h /usr/include/c++/14/cwctype \
+ /usr/include/wctype.h /usr/include/bits/wctype-wchar.h \
+ /usr/include/c++/14/aarch64-redhat-linux/bits/ctype_base.h \
+ /usr/include/c++/14/bits/streambuf_iterator.h \
+ /usr/include/c++/14/aarch64-redhat-linux/bits/ctype_inline.h \
+ /usr/include/c++/14/bits/locale_facets.tcc \
+ /usr/include/c++/14/bits/basic_ios.tcc /usr/include/c++/14/ostream \
+ /usr/include/c++/14/bits/ostream.tcc \
+ /usr/include/c++/14/bits/istream.tcc /usr/include/c++/14/bits/codecvt.h \
+ /usr/include/c++/14/aarch64-redhat-linux/bits/basic_file.h \
+ /usr/include/c++/14/aarch64-redhat-linux/bits/c++io.h \
+ /usr/include/c++/14/bits/fstream.tcc /usr/include/c++/14/iostream \
+ /usr/include/c++/14/random /usr/include/c++/14/bits/random.h \
+ /usr/include/c++/14/bits/uniform_int_dist.h \
+ /usr/include/c++/14/aarch64-redhat-linux/bits/opt_random.h \
+ /usr/include/c++/14/bits/random.tcc /usr/include/c++/14/numeric \
+ /usr/include/c++/14/bits/stl_numeric.h \
+ /usr/include/c++/14/pstl/glue_numeric_defs.h \
+ /usr/include/c++/14/pstl/execution_defs.h

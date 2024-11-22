@@ -1,10 +1,10 @@
-# 0 "/home/fox/code/arc_length_cpp/src/extended_chassis.cpp"
+# 0 "/home/fox/code/arc_length_cpp/src/simulating_code.cpp"
 # 1 "/home/fox/code/arc_length_cpp/cmake-build-debug//"
 # 0 "<built-in>"
 # 0 "<command-line>"
 # 1 "/usr/include/stdc-predef.h" 1 3 4
 # 0 "<command-line>" 2
-# 1 "/home/fox/code/arc_length_cpp/src/extended_chassis.cpp"
+# 1 "/home/fox/code/arc_length_cpp/src/simulating_code.cpp"
 # 1 "/home/fox/code/arc_length_cpp/include/main.h" 1
        
 # 1 "/usr/include/c++/14/atomic" 1 3
@@ -57242,881 +57242,202 @@ extern std::vector<lemlib::Pose> movements;
 extern Aux aux;
 extern lemlib::Pose robot_pose;
 extern lemlib::ExtendedChassis chassis;
-# 2 "/home/fox/code/arc_length_cpp/src/extended_chassis.cpp" 2
-
-
-# 1 "/usr/include/c++/14/stdexcept" 1 3
-# 36 "/usr/include/c++/14/stdexcept" 3
-       
-# 37 "/usr/include/c++/14/stdexcept" 3
-
-# 1 "/usr/include/c++/14/exception" 1 3
-# 33 "/usr/include/c++/14/exception" 3
-       
-# 34 "/usr/include/c++/14/exception" 3
-
-
-
-
-
-# 1 "/usr/include/c++/14/bits/version.h" 1 3
-# 47 "/usr/include/c++/14/bits/version.h" 3
-       
-# 48 "/usr/include/c++/14/bits/version.h" 3
-# 40 "/usr/include/c++/14/exception" 2 3
-
-
-# 41 "/usr/include/c++/14/exception" 3
-extern "C++" {
-
-namespace std __attribute__ ((__visibility__ ("default")))
-{
-# 54 "/usr/include/c++/14/exception" 3
-  class bad_exception : public exception
-  {
-  public:
-    bad_exception() noexcept { }
-
-
-
-    virtual ~bad_exception() noexcept;
-
-
-    virtual const char*
-    what() const noexcept;
-  };
-
-
-  typedef void (*terminate_handler) ();
-
-
-  terminate_handler set_terminate(terminate_handler) noexcept;
-
-
-
-  terminate_handler get_terminate() noexcept;
-
-
-
-
-  void terminate() noexcept __attribute__ ((__noreturn__,__cold__));
-
-
-
-  typedef void (*__attribute__ ((__deprecated__)) unexpected_handler) ();
-
-
-
-
-
-  __attribute__ ((__deprecated__))
-  unexpected_handler set_unexpected(unexpected_handler) noexcept;
-
-
-
-
-
-
-
-  __attribute__ ((__deprecated__))
-  unexpected_handler get_unexpected() noexcept;
-
-
-
-
-
-
-
-  __attribute__ ((__deprecated__))
-  void unexpected() __attribute__ ((__noreturn__,__cold__));
-# 124 "/usr/include/c++/14/exception" 3
-  __attribute__ ((__deprecated__ ("use '" "std::uncaught_exceptions()" "' instead")))
-  bool uncaught_exception() noexcept __attribute__ ((__pure__));
-
-
-
-
-
-
-  int uncaught_exceptions() noexcept __attribute__ ((__pure__));
-
-
-
-}
-
-namespace __gnu_cxx __attribute__ ((__visibility__ ("default")))
-{
-
-# 158 "/usr/include/c++/14/exception" 3
-  void __verbose_terminate_handler();
-
-
-}
-
-}
-
-
-# 1 "/usr/include/c++/14/bits/exception_ptr.h" 1 3
-# 36 "/usr/include/c++/14/bits/exception_ptr.h" 3
-# 1 "/usr/include/c++/14/bits/cxxabi_init_exception.h" 1 3
-# 34 "/usr/include/c++/14/bits/cxxabi_init_exception.h" 3
-       
-# 35 "/usr/include/c++/14/bits/cxxabi_init_exception.h" 3
-
-#pragma GCC visibility push(default)
-
-# 1 "/usr/lib/gcc/aarch64-redhat-linux/14/include/stddef.h" 1 3 4
-# 39 "/usr/include/c++/14/bits/cxxabi_init_exception.h" 2 3
-# 50 "/usr/include/c++/14/bits/cxxabi_init_exception.h" 3
-namespace std
-{
-  class type_info;
-}
-
-namespace __cxxabiv1
-{
-  struct __cxa_refcounted_exception;
-
-  extern "C"
-    {
-
-      void*
-      __cxa_allocate_exception(size_t) noexcept;
-
-      void
-      __cxa_free_exception(void*) noexcept;
-
-
-      __cxa_refcounted_exception*
-      __cxa_init_primary_exception(void *__object, std::type_info *__tinfo,
-                void ( *__dest) (void *))
- noexcept;
-
+# 2 "/home/fox/code/arc_length_cpp/src/simulating_code.cpp" 2
+# 20 "/home/fox/code/arc_length_cpp/src/simulating_code.cpp"
+using namespace lemlib;
+using namespace pros;
+
+
+void red_right_awp_base_movements(bool ladder, transform_across_field transformation) {
+    Pose red_right_starting_pose = {-55.724, -31.446, -90};
+    Pose starting_pose = transformOnlyPose(red_right_starting_pose, transformation);
+    chassis.setPose(starting_pose);
+
+
+    chassis.processMovement(movement{
+                                .pose = {-41.652, -36.117, 270}, .offset_distance = 0, .perp_offset_distance = 0,
+                                .moveParams = MoveToPoseParams{.forwards = false, .minSpeed = 70}, .exitDistance = 0,
+                                .timeout = 4000
+                            },
+                            transformation);
+    chassis.processMovement(movement{
+                                .pose = {-31.655, -28.682, 241},
+                                .offset_distance = -6,
+                                .perp_offset_distance = 0,
+                                .moveParams = MoveToPoseParams{
+                                    .forwards = false,
+                                    .maxSpeed = 50,
+                                    .minSpeed = 40,
+                                },
+                                .exitDistance = 0,
+                                .timeout = 4000,
+                            },
+                            transformation);
+    delay(500);
+    aux.enactMogoState(Aux::MOGO_LOCKED);
+
+
+
+    aux.enactConveyorState(Aux::CONVEYOR_FORWARD);
+
+
+
+    delay(1250);
+
+
+    chassis.turnToHeading(180, 1000, {}, false);
+
+
+    chassis.processMovement(movement{
+                                .pose = {-26.407, -25.773, 180},
+                                .offset_distance = 24,
+                                .perp_offset_distance = 2,
+                                .moveParams = MoveToPoseParams{.forwards = true, .minSpeed = 30},
+                                .exitDistance = 0,
+                                .timeout = 4000,
+                            },
+                            transformation);
+
+    delay(800);
+    aux.enactConveyorState(Aux::CONVEYOR_STOP);
+
+    chassis.processMovement(movement{
+                                .pose = {-26.407, -25.773, 180},
+                                .offset_distance = 2,
+                                .perp_offset_distance = -3,
+                                .moveParams = MoveToPoseParams{.forwards = false, .minSpeed = 30},
+                                .exitDistance = 0,
+                                .timeout = 4000,
+                            },
+                            transformation);
+
+    if (transformation == transform_across_field{false, true}) {
+        chassis.turnToHeading(48.6, 1000, {}, false);
+    } else {
+        chassis.turnToHeading(311.4, 1000, {}, false);
+    }
+
+    chassis.processMovement(movement{
+                                .pose = chassis.getPose(),
+                                .offset_distance = -20,
+                                .perp_offset_distance = 0,
+                                .moveParams = MoveToPoseParams{.forwards = false, .minSpeed = 30},
+                                .exitDistance = 0,
+                                .timeout = 4000,
+                            },
+                            {false, false});
+
+
+
+    if (ladder) {
+        chassis.processMovement(movement{
+                                    .pose = {-17, -35, 0},
+                                    .offset_distance = 0,
+                                    .perp_offset_distance = 0,
+                                    .moveParams = MoveToPoseParams{.forwards = true, .minSpeed = 30},
+                                    .exitDistance = 0,
+                                    .timeout = 4000,
+                                },
+                                transformation);
+        chassis.processMovement(movement{
+                                    .pose = {-17, -10, 0},
+                                    .offset_distance = 0,
+                                    .perp_offset_distance = 0,
+                                    .moveParams = MoveToPoseParams{.forwards = true, .minSpeed = 30},
+                                    .exitDistance = 0,
+                                    .timeout = 4000,
+                                },
+                                transformation);
     }
 }
 
 
-
-#pragma GCC visibility pop
-# 37 "/usr/include/c++/14/bits/exception_ptr.h" 2 3
-# 1 "/usr/include/c++/14/typeinfo" 1 3
-# 32 "/usr/include/c++/14/typeinfo" 3
-       
-# 33 "/usr/include/c++/14/typeinfo" 3
-
-
-
-
-
-
-
-# 1 "/usr/include/c++/14/bits/version.h" 1 3
-# 47 "/usr/include/c++/14/bits/version.h" 3
-       
-# 48 "/usr/include/c++/14/bits/version.h" 3
-# 41 "/usr/include/c++/14/typeinfo" 2 3
-
-#pragma GCC visibility push(default)
-
-extern "C++" {
-
-namespace __cxxabiv1
-{
-  class __class_type_info;
-}
-# 83 "/usr/include/c++/14/typeinfo" 3
-namespace std
-{
-
-
-
-
-
-
-  class type_info
-  {
-  public:
-
-
-
-
-    virtual ~type_info();
-
-
-
-    const char* name() const noexcept
-    { return __name[0] == '*' ? __name + 1 : __name; }
-
-
-
-    bool before(const type_info& __arg) const noexcept;
-
-   
-    bool operator==(const type_info& __arg) const noexcept;
-
-
-
-
-
-
-
-    size_t hash_code() const noexcept
-    {
-
-      return _Hash_bytes(name(), __builtin_strlen(name()),
-    static_cast<size_t>(0xc70f6907UL));
-
-
-
-    }
-
-
-
-    virtual bool __is_pointer_p() const;
-
-
-    virtual bool __is_function_p() const;
-
-
-
-
-
-
-
-    virtual bool __do_catch(const type_info *__thr_type, void **__thr_obj,
-       unsigned __outer) const;
-
-
-    virtual bool __do_upcast(const __cxxabiv1::__class_type_info *__target,
-        void **__obj_ptr) const;
-
-  protected:
-    const char *__name;
-
-    explicit type_info(const char *__n): __name(__n) { }
-
-  private:
-
-
-    type_info& operator=(const type_info&) = delete;
-    type_info(const type_info&) = delete;
-# 166 "/usr/include/c++/14/typeinfo" 3
-  };
-
-
-  inline bool
-  type_info::before(const type_info& __arg) const noexcept
-  {
-
-
-
-
-    if (__name[0] != '*' || __arg.__name[0] != '*')
-      return __builtin_strcmp (__name, __arg.__name) < 0;
-# 186 "/usr/include/c++/14/typeinfo" 3
-    return __name < __arg.__name;
-  }
-
-
-
-  inline bool
-  type_info::operator==(const type_info& __arg) const noexcept
-  {
-    if (std::__is_constant_evaluated())
-      return this == &__arg;
-
-    if (__name == __arg.__name)
-      return true;
-
-
-
-
-
-
-    return __name[0] != '*' && __builtin_strcmp (__name, __arg.name()) == 0;
-
-
-
-  }
-# 219 "/usr/include/c++/14/typeinfo" 3
-  class bad_cast : public exception
-  {
-  public:
-    bad_cast() noexcept { }
-
-
-
-    virtual ~bad_cast() noexcept;
-
-
-    virtual const char* what() const noexcept;
-  };
-
-
-
-
-
-  class bad_typeid : public exception
-  {
-  public:
-    bad_typeid () noexcept { }
-
-
-
-    virtual ~bad_typeid() noexcept;
-
-
-    virtual const char* what() const noexcept;
-  };
-}
-
-}
-
-#pragma GCC visibility pop
-# 38 "/usr/include/c++/14/bits/exception_ptr.h" 2 3
-# 50 "/usr/include/c++/14/bits/exception_ptr.h" 3
-extern "C++" {
-
-namespace std __attribute__ ((__visibility__ ("default")))
-{
-  class type_info;
-
-
-
-
-
-
-  namespace __exception_ptr
-  {
-    class exception_ptr;
-  }
-
-  using __exception_ptr::exception_ptr;
-# 75 "/usr/include/c++/14/bits/exception_ptr.h" 3
-  exception_ptr current_exception() noexcept;
-
-  template<typename _Ex>
-  exception_ptr make_exception_ptr(_Ex) noexcept;
-
-
-  void rethrow_exception(exception_ptr) __attribute__ ((__noreturn__));
-
-  namespace __exception_ptr
-  {
-    using std::rethrow_exception;
-# 97 "/usr/include/c++/14/bits/exception_ptr.h" 3
-    class exception_ptr
-    {
-      void* _M_exception_object;
-
-      explicit exception_ptr(void* __e) noexcept;
-
-      void _M_addref() noexcept;
-      void _M_release() noexcept;
-
-      void *_M_get() const noexcept __attribute__ ((__pure__));
-
-      friend exception_ptr std::current_exception() noexcept;
-      friend void std::rethrow_exception(exception_ptr);
-      template<typename _Ex>
-      friend exception_ptr std::make_exception_ptr(_Ex) noexcept;
-
-    public:
-      exception_ptr() noexcept;
-
-      exception_ptr(const exception_ptr&) noexcept;
-
-
-      exception_ptr(nullptr_t) noexcept
-      : _M_exception_object(nullptr)
-      { }
-
-      exception_ptr(exception_ptr&& __o) noexcept
-      : _M_exception_object(__o._M_exception_object)
-      { __o._M_exception_object = nullptr; }
-# 135 "/usr/include/c++/14/bits/exception_ptr.h" 3
-      exception_ptr&
-      operator=(const exception_ptr&) noexcept;
-
-
-      exception_ptr&
-      operator=(exception_ptr&& __o) noexcept
-      {
-        exception_ptr(static_cast<exception_ptr&&>(__o)).swap(*this);
-        return *this;
-      }
-
-
-      ~exception_ptr() noexcept;
-
-      void
-      swap(exception_ptr&) noexcept;
-# 162 "/usr/include/c++/14/bits/exception_ptr.h" 3
-      explicit operator bool() const noexcept
-      { return _M_exception_object; }
-
-
-
-
-      friend bool
-      operator==(const exception_ptr&, const exception_ptr&) noexcept = default;
-# 182 "/usr/include/c++/14/bits/exception_ptr.h" 3
-      const class std::type_info*
-      __cxa_exception_type() const noexcept
- __attribute__ ((__pure__));
-    };
-
-   
-    inline
-    exception_ptr::exception_ptr() noexcept
-    : _M_exception_object(0)
-    { }
-
-   
-    inline
-    exception_ptr::exception_ptr(const exception_ptr& __other)
-    noexcept
-    : _M_exception_object(__other._M_exception_object)
-    {
-      if (_M_exception_object)
- _M_addref();
-    }
-
-   
-    inline
-    exception_ptr::~exception_ptr() noexcept
-    {
-      if (_M_exception_object)
- _M_release();
-    }
-
-   
-    inline exception_ptr&
-    exception_ptr::operator=(const exception_ptr& __other) noexcept
-    {
-      exception_ptr(__other).swap(*this);
-      return *this;
-    }
-
-   
-    inline void
-    exception_ptr::swap(exception_ptr &__other) noexcept
-    {
-      void *__tmp = _M_exception_object;
-      _M_exception_object = __other._M_exception_object;
-      __other._M_exception_object = __tmp;
-    }
-
-
-    inline void
-    swap(exception_ptr& __lhs, exception_ptr& __rhs)
-    { __lhs.swap(__rhs); }
-
-
-    template<typename _Ex>
-     
-      inline void
-      __dest_thunk(void* __x)
-      { static_cast<_Ex*>(__x)->~_Ex(); }
-
-
-  }
-
-  using __exception_ptr::swap;
-
-
-
-  template<typename _Ex>
-    exception_ptr
-    make_exception_ptr(_Ex __ex) noexcept
-    {
-
-      using _Ex2 = typename decay<_Ex>::type;
-      void* __e = __cxxabiv1::__cxa_allocate_exception(sizeof(_Ex));
-      (void) __cxxabiv1::__cxa_init_primary_exception(
-   __e, const_cast<std::type_info*>(&typeid(_Ex)),
-   __exception_ptr::__dest_thunk<_Ex2>);
-      try
- {
-   ::new (__e) _Ex2(__ex);
-   return exception_ptr(__e);
- }
-      catch(...)
- {
-   __cxxabiv1::__cxa_free_exception(__e);
-   return current_exception();
- }
-# 277 "/usr/include/c++/14/bits/exception_ptr.h" 3
-    }
-# 291 "/usr/include/c++/14/bits/exception_ptr.h" 3
-}
-
-}
-# 167 "/usr/include/c++/14/exception" 2 3
-# 1 "/usr/include/c++/14/bits/nested_exception.h" 1 3
-# 40 "/usr/include/c++/14/bits/nested_exception.h" 3
-extern "C++" {
-
-namespace std __attribute__ ((__visibility__ ("default")))
-{
-# 59 "/usr/include/c++/14/bits/nested_exception.h" 3
-  class nested_exception
-  {
-    exception_ptr _M_ptr;
-
-  public:
-
-    nested_exception() noexcept : _M_ptr(current_exception()) { }
-
-    nested_exception(const nested_exception&) noexcept = default;
-
-    nested_exception& operator=(const nested_exception&) noexcept = default;
-
-    virtual ~nested_exception() noexcept;
-
-
-    [[noreturn]]
-    void
-    rethrow_nested() const
-    {
-      if (_M_ptr)
- rethrow_exception(_M_ptr);
-      std::terminate();
-    }
-
-
-    exception_ptr
-    nested_ptr() const noexcept
-    { return _M_ptr; }
-  };
-
-
-
-  template<typename _Except>
-    struct _Nested_exception : public _Except, public nested_exception
-    {
-      explicit _Nested_exception(const _Except& __ex)
-      : _Except(__ex)
-      { }
-
-      explicit _Nested_exception(_Except&& __ex)
-      : _Except(static_cast<_Except&&>(__ex))
-      { }
-    };
-# 145 "/usr/include/c++/14/bits/nested_exception.h" 3
-  template<typename _Tp>
-    [[noreturn]]
-    inline void
-    throw_with_nested(_Tp&& __t)
-    {
-      using _Up = typename decay<_Tp>::type;
-      using _CopyConstructible
- = __and_<is_copy_constructible<_Up>, is_move_constructible<_Up>>;
-      static_assert(_CopyConstructible::value,
-   "throw_with_nested argument must be CopyConstructible");
-
-
-      if constexpr (is_class_v<_Up>)
- if constexpr (!is_final_v<_Up>)
-   if constexpr (!is_base_of_v<nested_exception, _Up>)
-     throw _Nested_exception<_Up>{std::forward<_Tp>(__t)};
-      throw std::forward<_Tp>(__t);
-
-
-
-
-
-    }
-# 203 "/usr/include/c++/14/bits/nested_exception.h" 3
-  template<typename _Ex>
-
-
-
-    inline void
-    rethrow_if_nested(const _Ex& __ex)
-    {
-      const _Ex* __ptr = __builtin_addressof(__ex);
-# 223 "/usr/include/c++/14/bits/nested_exception.h" 3
-      if constexpr (!is_polymorphic_v<_Ex>)
- return;
-      else if constexpr (is_base_of_v<nested_exception, _Ex>
-    && !is_convertible_v<_Ex*, nested_exception*>)
- return;
-
-
-
-
-      else if (auto __ne_ptr = dynamic_cast<const nested_exception*>(__ptr))
- __ne_ptr->rethrow_nested();
-
-    }
+void red_right_base_movements(bool ladder, transform_across_field transformation) {
+    Pose red_right_starting_pose = {-55.724, -31.446, -90};
+    Pose starting_pose = transformOnlyPose(red_right_starting_pose, transformation);
+    chassis.setPose(starting_pose);
+
+
+    chassis.processMovement(movement{
+                                .pose = {-41.652, -36.117, 270}, .offset_distance = 0, .perp_offset_distance = 0,
+                                .moveParams = MoveToPoseParams{.forwards = false, .minSpeed = 70}, .exitDistance = 0,
+                                .timeout = 4000
+                            },
+                            transformation);
+    chassis.processMovement(movement{
+                                .pose = {-31.655, -28.682, 241},
+                                .offset_distance = -6,
+                                .perp_offset_distance = 0,
+                                .moveParams = MoveToPoseParams{
+                                    .forwards = false,
+                                    .maxSpeed = 50,
+                                    .minSpeed = 40,
+                                },
+                                .exitDistance = 0,
+                                .timeout = 4000,
+                            },
+                            transformation);
+    delay(500);
+    aux.enactMogoState(Aux::MOGO_LOCKED);
+
+
+
+    aux.enactConveyorState(Aux::CONVEYOR_FORWARD);
+
+
+
+    delay(1250);
+
+
+    chassis.turnToHeading(180, 1000, {}, false);
+
+
+    chassis.processMovement(movement{
+                                .pose = {-23.407, -25.773, 180},
+                                .offset_distance = 24,
+                                .perp_offset_distance = -0.5,
+                                .moveParams = MoveToPoseParams{.forwards = true, .minSpeed = 30},
+                                .exitDistance = 0,
+                                .timeout = 4000,
+                            },
+                            transformation);
+
+    delay(2000);
+    aux.enactConveyorState(Aux::CONVEYOR_STOP);
+    aux.enactMogoState(Aux::MOGO_UNLOCKED);
+    chassis.processMovement(movement{
+                                .pose = {-15, -44, -90},
+                                .offset_distance = 2,
+                                .perp_offset_distance = 0,
+                                .moveParams = MoveToPoseParams{.forwards = true, .minSpeed = 30},
+                                .exitDistance = 0,
+                                .timeout = 4000,
+                            },
+                            transformation);
 
 
 }
 
-}
-# 168 "/usr/include/c++/14/exception" 2 3
-# 39 "/usr/include/c++/14/stdexcept" 2 3
-
-
-namespace std __attribute__ ((__visibility__ ("default")))
-{
-
-
-
-
-
-  struct __cow_string
-  {
-    union {
-      const char* _M_p;
-      char _M_bytes[sizeof(const char*)];
-    };
-
-    __cow_string();
-    __cow_string(const std::string&);
-    __cow_string(const char*, size_t);
-    __cow_string(const __cow_string&) noexcept;
-    __cow_string& operator=(const __cow_string&) noexcept;
-    ~__cow_string();
-
-    __cow_string(__cow_string&&) noexcept;
-    __cow_string& operator=(__cow_string&&) noexcept;
-
-  };
-
-  typedef basic_string<char> __sso_string;
-# 113 "/usr/include/c++/14/stdexcept" 3
-  class logic_error : public exception
-  {
-    __cow_string _M_msg;
-
-  public:
-
-    explicit
-    logic_error(const string& __arg) ;
-
-
-    explicit
-    logic_error(const char*) ;
-
-    logic_error(logic_error&&) noexcept;
-    logic_error& operator=(logic_error&&) noexcept;
-
-
-
-    logic_error(const logic_error&) noexcept;
-    logic_error& operator=(const logic_error&) noexcept;
-
-
-
-
-
-    virtual ~logic_error() noexcept;
-
-
-
-    virtual const char*
-    what() const noexcept;
-
-
-
-
-
-  };
-
-
-
-  class domain_error : public logic_error
-  {
-  public:
-    explicit domain_error(const string& __arg) ;
-
-    explicit domain_error(const char*) ;
-    domain_error(const domain_error&) = default;
-    domain_error& operator=(const domain_error&) = default;
-    domain_error(domain_error&&) = default;
-    domain_error& operator=(domain_error&&) = default;
-
-    virtual ~domain_error() noexcept;
-  };
-
-
-  class invalid_argument : public logic_error
-  {
-  public:
-    explicit invalid_argument(const string& __arg) ;
-
-    explicit invalid_argument(const char*) ;
-    invalid_argument(const invalid_argument&) = default;
-    invalid_argument& operator=(const invalid_argument&) = default;
-    invalid_argument(invalid_argument&&) = default;
-    invalid_argument& operator=(invalid_argument&&) = default;
-
-    virtual ~invalid_argument() noexcept;
-  };
-
-
-
-  class length_error : public logic_error
-  {
-  public:
-    explicit length_error(const string& __arg) ;
-
-    explicit length_error(const char*) ;
-    length_error(const length_error&) = default;
-    length_error& operator=(const length_error&) = default;
-    length_error(length_error&&) = default;
-    length_error& operator=(length_error&&) = default;
-
-    virtual ~length_error() noexcept;
-  };
-
-
-
-  class out_of_range : public logic_error
-  {
-  public:
-    explicit out_of_range(const string& __arg) ;
-
-    explicit out_of_range(const char*) ;
-    out_of_range(const out_of_range&) = default;
-    out_of_range& operator=(const out_of_range&) = default;
-    out_of_range(out_of_range&&) = default;
-    out_of_range& operator=(out_of_range&&) = default;
-
-    virtual ~out_of_range() noexcept;
-  };
-
-
-
-
-
-
-  class runtime_error : public exception
-  {
-    __cow_string _M_msg;
-
-  public:
-
-    explicit
-    runtime_error(const string& __arg) ;
-
-
-    explicit
-    runtime_error(const char*) ;
-
-    runtime_error(runtime_error&&) noexcept;
-    runtime_error& operator=(runtime_error&&) noexcept;
-
-
-
-    runtime_error(const runtime_error&) noexcept;
-    runtime_error& operator=(const runtime_error&) noexcept;
-
-
-
-
-
-    virtual ~runtime_error() noexcept;
-
-
-
-    virtual const char*
-    what() const noexcept;
-
-
-
-
-
-  };
-
-
-  class range_error : public runtime_error
-  {
-  public:
-    explicit range_error(const string& __arg) ;
-
-    explicit range_error(const char*) ;
-    range_error(const range_error&) = default;
-    range_error& operator=(const range_error&) = default;
-    range_error(range_error&&) = default;
-    range_error& operator=(range_error&&) = default;
-
-    virtual ~range_error() noexcept;
-  };
-
-
-  class overflow_error : public runtime_error
-  {
-  public:
-    explicit overflow_error(const string& __arg) ;
-
-    explicit overflow_error(const char*) ;
-    overflow_error(const overflow_error&) = default;
-    overflow_error& operator=(const overflow_error&) = default;
-    overflow_error(overflow_error&&) = default;
-    overflow_error& operator=(overflow_error&&) = default;
-
-    virtual ~overflow_error() noexcept;
-  };
-
-
-  class underflow_error : public runtime_error
-  {
-  public:
-    explicit underflow_error(const string& __arg) ;
-
-    explicit underflow_error(const char*) ;
-    underflow_error(const underflow_error&) = default;
-    underflow_error& operator=(const underflow_error&) = default;
-    underflow_error(underflow_error&&) = default;
-    underflow_error& operator=(underflow_error&&) = default;
-
-    virtual ~underflow_error() noexcept;
-  };
-
-
-
-
-}
-# 5 "/home/fox/code/arc_length_cpp/src/extended_chassis.cpp" 2
-
-
-# 6 "/home/fox/code/arc_length_cpp/src/extended_chassis.cpp"
-void printPose(lemlib::Pose pose) {
-    printf("Output Debug Pose: x:%f y:%f theta:%f \n", pose.x, pose.y, pose.theta);
-}
-namespace lemlib {
-void ExtendedChassis::moveToPoseWithEarlyExit(Pose pose, float timeout, MoveToPoseParams params, float exit_distance,
-                                              bool async , bool degrees ) {
-    moveToPose(pose, timeout, params, false);
-    return;
+void red_right(bool ladder) {
+    const transform_across_field transformation{false, false};
+    red_right_base_movements(ladder, transformation);
 }
 
-void ExtendedChassis::moveToPointWithEarlyExit(Pose pose, float timeout, MoveToPointParams params, float exit_distance,
-                                               bool async ) {
-    if (exit_distance < 0) {
-        throw std::out_of_range("Exit distance must be non-negative");
-    }
-
-    Pose pose_n = calculatePoseWithOffsetInDirection(pose, -exit_distance, true);
-    moveToPoint(pose_n, timeout, params, false);
-
-
-    return;
+void red_left(bool ladder) {
+    const transform_across_field transformation{true, false};
+    red_right_base_movements(ladder, transformation);
 }
 
-void ExtendedChassis::processMovement(movement movement_s,
-                                      transform_across_field transformation ) {
-    movement transformed_movement = transformMovement(calculateOffset(movement_s), transformation);
-
-    if (std::holds_alternative<MoveToPoseParams>(transformed_movement.moveParams)) {
-        MoveToPoseParams params = std::get<MoveToPoseParams>(movement_s.moveParams);
-        moveToPoseWithEarlyExit(transformed_movement.pose, transformed_movement.timeout, params, transformed_movement.exitDistance, transformed_movement.async, transformed_movement.degrees);
-    } else if (std::holds_alternative<MoveToPointParams>(transformed_movement.moveParams)) {
-        MoveToPointParams params = std::get<MoveToPointParams>(movement_s.moveParams);
-        moveToPointWithEarlyExit(transformed_movement.pose, transformed_movement.timeout, params, transformed_movement.exitDistance, transformed_movement.async);
-    }
+void blue_left(bool ladder) {
+    const transform_across_field transformation{false, true};
+    red_right_base_movements(ladder, transformation);
 }
+
+void blue_right(bool ladder) {
+    const transform_across_field transformation{true, true};
+    red_right_base_movements(ladder, transformation);
+}
+
+void main_code() {
+    blue_left(true);
 }

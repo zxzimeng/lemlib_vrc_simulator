@@ -58,8 +58,8 @@ void generatePathFile(const std::string &filename) {
         file << "\"displayName\":\"V5RC 2025 - High Stakes (Skills)\",";
         file << "\"signature\":\"V5RC 2025 - High Stakes (Skills)\",";
     }else {
-        file << "\"displayName\":\"V5RC 2025 - High Stakes (Skills)\",";
-        file << "\"signature\":\"V5RC 2025 - High Stakes (Skills)\",";
+        file << "\"displayName\":\"V5RC 2025 - High Stakes\",";
+        file << "\"signature\":\"V5RC 2025 - High Stakes\",";
     }
     file << "\"origin\":{\"__type\":\"built-in\"}";
     file << "},";

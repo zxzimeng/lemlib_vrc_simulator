@@ -53,6 +53,7 @@ void lemlib::Chassis::turnToHeading(float theta, int timeout, TurnToHeadingParam
 
 void lemlib::Chassis::moveToPose(Pose pose, int timeout, MoveToPoseParams params, bool async) {
     robot_pose=pose;
+    // robot_pose.y-=2;
     robot_pose.theta=sanitizeAngle(robot_pose.theta, false);
     movements.emplace_back(robot_pose);
     printf("Moved to Pose: x: %.3f y: %.3f theta: %.3f\n", pose.x, pose.y, sanitizeAngle(pose.theta, false));

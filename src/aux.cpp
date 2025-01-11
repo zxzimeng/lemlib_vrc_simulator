@@ -14,16 +14,16 @@ Aux::IntakeClawSystemState Aux::getToggledIntakeClawSystemState() {
 
 void Aux::enactMogoState(MogoState target_state) {
     mogoState = target_state;
-    printf("Mogo is at: %s", target_state == MOGO_LOCKED ? "Mogo Locked" : "Mogo Unlcoked");
+    printf("Mogo is at: %s\n", target_state == MOGO_LOCKED ? "Mogo Locked" : "Mogo Unlcoked");
 }
 
 void Aux::enactConveyorState(ConveyorState target_state) {
     conveyorState = target_state;
-    printf("Conveyor is at: %s", target_state == CONVEYOR_STOP ? "Conveyor Stopped" : target_state==CONVEYOR_FORWARD ? "Conveyor Forward" : "Conveyor Back");
+    printf("Conveyor is at: %s\n", target_state == CONVEYOR_STOP ? "Conveyor Stopped" : target_state==CONVEYOR_FORWARD ? "Conveyor Forward" : "Conveyor Back");
 }
 
 void Aux::enactFlapState(FlapState target_state) {
     flapState = target_state;
-    printf("Flap is at: %s", target_state == FLAP_EXTENDED ? "Flap Extended" : "Flap Retracted");
+    printf("Flap is at: %s\n", target_state == FLAP_EXTENDED ? "Flap Extended" : "Flap Retracted");
 }
 

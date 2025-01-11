@@ -267,7 +267,7 @@ public:
   * chassis.turnToHeading(45, 2000, {.minSpeed = 60, .earlyExitRange = 5});
   * @endcode
   */
-  void turnToHeading(float theta, int timeout, TurnToHeadingParams params = {}, bool async = true);
+ void turnToHeading(float theta, int timeout, TurnToHeadingParams params = {}, bool async = true);
  /**
   * @brief Move the chassis towards the target pose
   *

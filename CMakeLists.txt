@@ -17,4 +17,6 @@ add_executable(${PROJECT_NAME} ${SOURCES}
         include/generate_jerryio.h
         src/simulating_code.cpp
         include/simulating_code.h
+        src/no_risk_auton_transformations.cpp
+        src/empty_implementations.cpp
 )

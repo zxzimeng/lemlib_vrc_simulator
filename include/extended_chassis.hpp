@@ -20,7 +20,8 @@ public:
                                   float exit_distance, bool async = false);
 
     // Method for processing movement (with or without transformation)
-    void processMovement(movement movement_s, transform_across_field transformation = {false, false});;
+    void processMovement(movement movement_s, transform_across_field transformation = {false, false});
+    void turn_to_transformed_heading(int timeout, float heading, TurnToHeadingParams params, bool async, transform_across_field transformation);
 
 };}
 void printPose(lemlib::Pose pose);
